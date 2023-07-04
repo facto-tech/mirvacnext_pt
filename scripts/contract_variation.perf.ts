@@ -30,6 +30,8 @@ export default () => {
 		await browser.takeScreenshot()
 	})
 
+	//use a different var name each time switching frames even if the frame ID is the same
+	//this will help with triage if something goes wrong or an identifier cannot be located
 	step('Step 2 - Switch to outframe', async browser => {
 		const target = await browser.switchTo()
 		target.frame("outframe")
@@ -47,6 +49,28 @@ export default () => {
 
 		const loginButton = await browser.findElement(By.css('#commit > input'))
 		await login.click()
+	})
+
+	step('Step 4 - Open Contract Admin', async browser => {
+
+		const mainTarget = await browser.switchTo()
+		mainTarget.frame("outframe")
+
+		const mainButtonTarget = await browser.switchTo()
+		mainButtonTarget.frame("mainbuttonFrame")
+
+		const contractAdmin = await browser.findElement(By.css("#divMain > nobr:nth-child(3) > ul > li > span > a"))
+		await contractAdmin.click()
+
+		const listTarget = await browser.switchTo()
+		listTarget.frame("listFrame")
+
+		/*const docTarget = await browser.switchTo()
+		docTarget.frame('DocRegRegFrame')*/
+
+		const mpcConstructionArrow = await browser.findElement(By.css("#registerItems > tbody > tr:nth-child(3) > td:nth-child(2) > a"))
+		
+
 	})
 
 
