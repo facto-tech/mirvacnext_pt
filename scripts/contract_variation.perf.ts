@@ -40,15 +40,15 @@ export default () => {
 	step('Step 3 - Login', async browser => {
 		
 		const login = await browser.findElement(By.css('#nme'))
-		await login.type(Constants.ITWOCXLOGIN)
+		await browser.type(Constants.ITWOCXLOGIN)
 
 		const password = await browser.findElement(By.css('#pwd'))
-		await password.type(Constants.ITWOPASS)
+		await browser.type(Constants.ITWOPASS)
 
 		await browser.takeScreenshot()
 
 		const loginButton = await browser.findElement(By.css('#commit > input'))
-		await login.click()
+		await loginButton.click()
 	})
 
 	step('Step 4 - Open Contract Admin', async browser => {
