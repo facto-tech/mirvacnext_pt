@@ -13,7 +13,7 @@ export const settings: TestSettings = {
 	clearCookies: true,
 	actionDelay: 1.5,
 	stepDelay: 2.5,
-	browser: 'chromium', 
+	browser: 'firefox', 
 	loopCount: 1, //remove this before publishing to PT run
 }
 
@@ -28,7 +28,7 @@ export default () => {
 	})
 
 	step('Step 1 - Load URL', async browser => {
-		await browser.visit(Constants.ALTURL)
+		await browser.visit('https://mirvac.itwocx.com/cxR/cx.aspx?page=Docs/docnew2tree&j=MIRVAC_AC_TMP_03&dsid=67349&mdu=CTR&t=67349&m=&i=&transID=&reportId=&due=')
 		await browser.takeScreenshot()
 	})
 
@@ -37,43 +37,18 @@ export default () => {
 
     step('Step 2 - Switch to outframe', async browser => {
 		const target = await browser.switchTo()
-        target.frame("outframe")
+        target.frame("DocNewNewFrame")
 	})
 
     step('Step 3 - Log into iTwocx as a Contracts Administrator', async browser => {
 		
         //Find the element 
-        const username = By.css('#nme')
+        const username = By.css('#tt')
         await browser.wait(Until.elementIsVisible(username))
-        
-        const password = By.css('#pwd')
-        await browser.wait(Until.elementIsVisible(password))
+    
         
         await browser.type(username, Constants.ITWOCXUSERNAME)
-        await browser.type(password, Constants.ITWOCXPASSWORD)
 
         await browser.takeScreenshot()
-
-        const loginButton = await browser.findElement(By.css('#commit > input'))
-        await loginButton.click()
 	})
-
-    step('Step 4 - Redirect to the form link', async browser => {
-
-		await browser.visit(Constants.FORMURL)
-		await browser.takeScreenshot()	
-	})
-
-	step('Step 5 - Enter title for the new contract', async browser => {
-		
-		const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
-		let title = '#tt'
-
-		await frame1.waitForSelector(title)
-		await frame1.type(title, 'DN BP-T5261')
-
-		await browser.takeScreenshot()
-	})
-
-	
 }
