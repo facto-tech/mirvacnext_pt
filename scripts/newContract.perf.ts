@@ -75,5 +75,33 @@ export default () => {
 		await browser.takeScreenshot()
 	})
 
+	step('Step 6 - Change the due date of the contract ', async browser => {
+		const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
+		
+		let  dueDate = '#dueDate > img'
+		await frame1.waitForSelector(dueDate)
+		await frame1.click(dueDate)
+
+		let chooseDate = '#cal_content > table > tbody > tr:nth-child(5) > td:nth-child(4) > a'
+		await frame1.waitForSelector(chooseDate)
+		await frame1.click(chooseDate) 
+
+		await browser.takeScreenshot()
+	})	
+	
+	step('Step 7 - Verify the auto-populated fields', async browser => {
+
+		//const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
+		//let statusElement = '#mStat2'
+		//await frame1.waitForSelector(statusElement, {visible: true})
+		
+		//const statusElement = await browser.findElement(By.css('#mStat2'))
+		//const status = await frame1.findBy(statusElement)
+		const target = await browser.switchTo()
+        target.frame("DocNewNewFrame")
+		let statusVerify = By.id('mStat2')
+		await browser.selectByValue(statusVerify, 'DRAFT')
+		await browser.takeScreenshot()
+	})
 	
 }
