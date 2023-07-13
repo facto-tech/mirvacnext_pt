@@ -64,8 +64,9 @@ export default () => {
 		await browser.takeScreenshot()	
 	})
 
+
 	step('Step 5 - Enter title for the new contract', async browser => {
-		
+
 		const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
 		let title = '#tt'
 
@@ -89,19 +90,73 @@ export default () => {
 		await browser.takeScreenshot()
 	})	
 	
-	step('Step 7 - Verify the auto-populated fields', async browser => {
-
-		//const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
-		//let statusElement = '#mStat2'
-		//await frame1.waitForSelector(statusElement, {visible: true})
+	step('Step 7 - Fill in the information under Administration', async browser => {
+		/**80% - Have not selected the dropdown menu yet */
+		const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
 		
-		//const statusElement = await browser.findElement(By.css('#mStat2'))
-		//const status = await frame1.findBy(statusElement)
-		const target = await browser.switchTo()
-        target.frame("DocNewNewFrame")
-		let statusVerify = By.id('mStat2')
-		await browser.selectByValue(statusVerify, 'DRAFT')
-		await browser.takeScreenshot()
+		//const commitmentType = '#USR_CTRCOMTYPE'; // Replace with the actual selector for the <select> element
+		//const optionValue = 'Ad hoc Order'; // Replace with the desired option value
+		
+		// await frame1.waitForSelector(commitmentType)
+		// await frame1.click(commitmentType)
+		
+		
+
+		// await frame1.evaluate(({ selector, value }) => {
+		// 	const selectElement = document.querySelector(selector);
+		// 	const option = Array.from(selectElement.options).find((opt) => opt.value === value);
+		// 	if (option) {
+		// 	  option.selected = true;
+		// 	  selectElement.dispatchEvent(new Event('change', { bubbles: true }));
+		// 	}
+		//   }, { selector: selectSelector, value: optionValue });
+
+
+		let packageManager = '#USR_PACKM'	
+		await frame1.waitForSelector(packageManager)
+		await frame1.type(packageManager, 'MRC1-SEPE1')
+
+		let contractAdministrator = '#USR_CTRA'
+		await frame1.waitForSelector(contractAdministrator)
+		await frame1.type(contractAdministrator, 'MRC1-CA1')
+
+		let vendor = '#USR_VEN'
+		await frame1.waitForSelector(vendor)
+		await frame1.type(vendor, 'V0003213-USER')
+
+		let commitmentType  = '#USR_CTRCOMTYPE'
+		let option = '#USR_CTRCOMTYPE > option:nth-child(2)'
+		await frame1.waitForSelector(commitmentType)
+		await frame1.click(commitmentType)
+		
+		// Press ArrowDown key
+		//await frame1.selectOption(commitmentType, { value: 'Ad hoc Order' });
+
+
+
 	})
+
+	step('Step 8 - Fill in the information under Contract', async browser => {
+		/*Haven't link SUBCONTRACT CATEGORY*/
+		const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewNewFrame'))
+
+		let subcontractorRepresentative = '#USR_CLMREPN'	
+		await frame1.waitForSelector(subcontractorRepresentative)
+		await frame1.type(subcontractorRepresentative, 'V0003213-USER')
+
+		let mirvacRepresentative  = '#USR_RESPREPN'	
+		await frame1.waitForSelector(mirvacRepresentative)
+		await frame1.type(mirvacRepresentative, 'MRC1-PM1')
+	})
+
+	/*step('Step 9 - Linked budget line', async browser => {}*/
+
+	step('Step 10 - Send For Approval', async browser => {
 	
+	const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewNewFrame'))
+	let submitButton = '#titidMenu271844'
+	await frame1.waitForSelector(submitButton)
+	await frame1.click(submitButton)
+
+	})
 }
