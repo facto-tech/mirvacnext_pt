@@ -1,4 +1,4 @@
-import { step, TestSettings, By, beforeAll, afterAll, Until, Browser } from '@flood/element';
+import { step, TestSettings, By, beforeAll, afterAll, Until, Mouse, Key } from '@flood/element';
 import assert from "assert";
 import Constants from '../data/Constants';
 
@@ -14,7 +14,7 @@ export const settings: TestSettings = {
 	actionDelay: 1.5,
 	stepDelay: 2.5,
 	browser: 'chromium', 
-	loopCount: 1, //remove this before publishing to PT run
+	loopCount: 1,
 }
 
 export default () => {
@@ -31,9 +31,6 @@ export default () => {
 		await browser.visit(Constants.ALTURL)
 		await browser.takeScreenshot()
 	})
-
-	//use a different var name each time switching frames even if the frame ID is the same
-	//this will help with triage if something goes wrong or an identifier cannot be located
 
     step('Step 2 - Switch to outframe', async browser => {
 		const target = await browser.switchTo()
@@ -56,6 +53,7 @@ export default () => {
 
         const loginButton = await browser.findElement(By.css('#commit > input'))
         await loginButton.click()
+
 	})
 
     step('Step 4 - Redirect to the form link', async browser => {
@@ -65,7 +63,7 @@ export default () => {
 	})
 
 
-	step('Step 5 - Enter title for the new contract', async browser => {
+	step('Step 5 - Enter title', async browser => {
 
 		const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
 		let title = '#tt'
@@ -76,32 +74,25 @@ export default () => {
 		await browser.takeScreenshot()
 	})
 
-	step('Step 6 - Change the due date of the contract ', async browser => {
+	step('Step 6 - Change the due date', async browser => {
+		
 		const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
 		
 		let  dueDate = '#dueDate > img'
 		await frame1.waitForSelector(dueDate)
 		await frame1.click(dueDate)
 
-		let chooseDate = '#cal_content > table > tbody > tr:nth-child(5) > td:nth-child(4) > a'
+		let chooseDate = '#cal_content > table > tbody > tr:nth-child(5) > td:nth-child(6) > a'
 		await frame1.waitForSelector(chooseDate)
 		await frame1.click(chooseDate) 
 
 		await browser.takeScreenshot()
 	})	
 	
-	step('Step 7 - Fill in the information under Administration', async browser => {
-		/**80% - Have not selected the dropdown menu yet */
+	step('Step 7 - Enter the Administration Details', async browser => {
+		
 		const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
-		
-		//const commitmentType = '#USR_CTRCOMTYPE'; // Replace with the actual selector for the <select> element
-		//const optionValue = 'Ad hoc Order'; // Replace with the desired option value
-		
-		// await frame1.waitForSelector(commitmentType)
-		// await frame1.click(commitmentType)
-		
-		
-
+	
 		// await frame1.evaluate(({ selector, value }) => {
 		// 	const selectElement = document.querySelector(selector);
 		// 	const option = Array.from(selectElement.options).find((opt) => opt.value === value);
@@ -110,7 +101,6 @@ export default () => {
 		// 	  selectElement.dispatchEvent(new Event('change', { bubbles: true }));
 		// 	}
 		//   }, { selector: selectSelector, value: optionValue });
-
 
 		let packageManager = '#USR_PACKM'	
 		await frame1.waitForSelector(packageManager)
@@ -128,16 +118,16 @@ export default () => {
 		let option = '#USR_CTRCOMTYPE > option:nth-child(2)'
 		await frame1.waitForSelector(commitmentType)
 		await frame1.click(commitmentType)
-		
-		// Press ArrowDown key
-		//await frame1.selectOption(commitmentType, { value: 'Ad hoc Order' });
+		await browser.sendKeys(Key.DOWN)
+		await browser.sendKeys(Key.DOWN)
+		await browser.sendKeys(Key.ENTER)
 
-
+		await browser.takeScreenshot()
 
 	})
 
-	step('Step 8 - Fill in the information under Contract', async browser => {
-		/*Haven't link SUBCONTRACT CATEGORY*/
+	step('Step 8 - Enter the Contract Details', async browser => {
+		
 		const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewNewFrame'))
 
 		let subcontractorRepresentative = '#USR_CLMREPN'	
@@ -147,16 +137,47 @@ export default () => {
 		let mirvacRepresentative  = '#USR_RESPREPN'	
 		await frame1.waitForSelector(mirvacRepresentative)
 		await frame1.type(mirvacRepresentative, 'MRC1-PM1')
+
+		//select SUBCONTRACT CATEGORY
+
+		let subcontractCatergory = '#USR_SCCAT'
+		await frame1.waitForSelector(subcontractCatergory)
+		await frame1.click(subcontractCatergory)
+		await browser.sendKeys(Key.DOWN)
+		await browser.sendKeys(Key.DOWN)
+		await browser.sendKeys(Key.ENTER)
+
+		await browser.takeScreenshot()
 	})
 
-	/*step('Step 9 - Linked budget line', async browser => {}*/
+	step('Step 9 - Link Budget', async browser => {
+		
+		const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewNewFrame'))
+		let arrowButton = '#divUsrForm > div.selectLinkedBudget'
+		await frame1.waitForSelector(arrowButton)
+		await frame1.click(arrowButton)
+		await browser.sendKeys(Key.DOWN)
+		await browser.sendKeys(Key.ENTER)
 
-	step('Step 10 - Send For Approval', async browser => {
+		let insertButton = '#rowsEditor > tbody > tr > td.buttonsTd > input:nth-child(2)'
+		await frame1.waitForSelector(insertButton)
+		await frame1.click(insertButton)
+
+		let arrowList = '//*[@id="tr.001"]/td[10]/span/span/span[2]'
+		await frame1.waitForSelector(arrowList)
+		await frame1.click(arrowList)
+		await browser.sendKeys(Key.DOWN)
+		await browser.sendKeys(Key.ENTER)
+
+		await browser.takeScreenshot()
+	})
+
+	step('Step 10 - Submit for Approval', async browser => {
 	
-	const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewNewFrame'))
+	const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewButFrame'))
 	let submitButton = '#titidMenu271844'
 	await frame1.waitForSelector(submitButton)
 	await frame1.click(submitButton)
-
+	
 	})
 }
