@@ -1,5 +1,6 @@
 import {faker} from '@faker-js/faker/locale/en_AU';
 
+
 class DataGeneration {
 
     const randomFirstName = faker.name.firstName();
@@ -12,7 +13,6 @@ class DataGeneration {
 
     //keeping between 1 and 28 so we dont need to rewrite the function for February
     const dateInRange = Math.floor(Math.random() * 28) + 1;
-
 }
 
 export default new DataGeneration();
