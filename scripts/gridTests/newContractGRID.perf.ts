@@ -1,6 +1,6 @@
 import { step, TestSettings, By, beforeAll, afterAll, Until, Key } from '@flood/element';
 import assert from "assert";
-import Constants from './Constants';
+
 
 function numberRange(min, max){
     min = Math.ceil(min);
@@ -33,7 +33,7 @@ export default () => {
 	})
 
 	step('Step 1 - Load URL', async browser => {
-		await browser.visit(Constants.ALTURL)
+		await browser.visit('https://mirvac.itwocx.com/MIRVAC_AC_TMP_03')
 		await browser.takeScreenshot()
 	})
 
@@ -51,8 +51,8 @@ export default () => {
         const password = By.css('#pwd')
         await browser.wait(Until.elementIsVisible(password))
         
-        await browser.type(username, Constants.ITWOCXUSERNAME)
-        await browser.type(password, Constants.ITWOCXPASSWORD)
+        await browser.type(username, 'mrc_ca_1@mailinator.com')
+        await browser.type(password, 'Project123!')
 
         await browser.takeScreenshot()
 
@@ -63,7 +63,7 @@ export default () => {
 
     step('Step 4 - Redirect to the form link', async browser => {
 
-		await browser.visit(Constants.FORMURL)
+		await browser.visit('https://mirvac.itwocx.com/cxR/cx.aspx?page=Docs/docnew2tree&j=MIRVAC_AC_TMP_03&dsid=67349&mdu=CTR&t=67349&m=&i=&transID=&reportId=&due=')
 		await browser.takeScreenshot()	
 	})
 
@@ -74,7 +74,7 @@ export default () => {
 		let title = '#tt'
 
 		await frame1.waitForSelector(title)
-		await frame1.type(title, 'Flood Test - ') //+ dataGeneration.randomNumber)
+		await frame1.type(title, 'Flood Test - '+ numberRange(100,100000))
 
 		await browser.takeScreenshot()
 	})
