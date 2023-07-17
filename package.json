@@ -15,10 +15,10 @@
     "arrowParens": "avoid"
   },
   "dependencies": {
-    "@flood/element": "2.0.4",
-    "@flood/element-cli": "2.0.4",
+    "@flood/element": "^1.0.8",
+    "@flood/element-cli": "^1.0.8",
     "assert": "*",
-    "faker": "^6.6.6",
+    "faker": "^5.5.3",
     "prettier": "*"
   },
   "devDependencies": {
