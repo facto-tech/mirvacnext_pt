@@ -1,0 +1,26 @@
+
+// gen random name
+function generateRandomName() {
+  const names = ['Alice', 'Bob', 'Charlie', 'Daisy', 'Ethan', 'Fiona'];
+  const randomIndex = Math.floor(Math.random() * names.length);
+  return names[randomIndex];
+}
+
+// random number
+function generateRandomNumber() {
+  return Math.floor(Math.random() * 1000);
+}
+
+// random word
+function generateRandomWord() {
+  const words = ['apple', 'banana', 'carrot', 'dolphin', 'elephant', 'flamingo'];
+  const randomIndex = Math.floor(Math.random() * words.length);
+  return words[randomIndex];
+}
+
+// random phrase
+function generateRandomPhrase() {
+  const phrases = ['Hello world', 'simplicity is key', 'You're the best', 'Programming is fun'];
+  const randomIndex = Math.floor(Math.random() * phrases.length);
+  return phrases[randomIndex];
+}
