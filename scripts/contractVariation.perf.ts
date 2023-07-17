@@ -57,19 +57,69 @@ import dataGeneration from '../data/dataGeneration';
 			await loginButton.click()
 	
 		})
-		/*
-		Assume that we have reached the step of listing all subcontracts.
-		In this step, we will select the first subcontract that has a state of APPROVED - ISSUED.
-		We will then click on the "Subcontractor Variation" and copy the link for this step 
-		*/
+		step('Step 4 -Navigate to A&C Construction Forms', async browser => {
+		
+			const mainTarget = await browser.switchTo()
+			mainTarget.frame("outframe")
+	
+			const mainButtonFrame = await browser.switchTo()
+			mainButtonFrame.frame("mainbuttonFrame")
+			
+			const contractAdmin = await browser.findElement(By.css('#divMain > nobr:nth-child(3) > ul > li > span > a'))
+			await contractAdmin.click()
+	
+			await browser.takeScreenshot()
+				
+			//Select A&CFORMS
+			const listTarget = await browser.switchTo()
+			listTarget.frame("DocRegRegFrame")
+	
+			const acforms = await browser.findElement(By.css('#registerItems > tbody > tr:nth-child(3) > td:nth-child(2) > a'))
+			await acforms.click()
+	
+			await browser.takeScreenshot()
+		})
 
-		step('Step 4 - Create subcontractor variation for: CTRC: AP-10169#0007 ', async browser => {
+		step('Step 5 - Select CTRA&C', async browser => {
+		
+			const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocRegRegFrame'))
+			let title = '//*[@id="registerItems"]/tbody/tr[3]/td[2]/a'
+			await frame1.waitForSelector(title)
+			await frame1.hover(title)
+			await frame1.click(title)
+		})	
+
+		step('Step 6 - Show subcontract List', async browser => {
+		
+			const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocRegRegFrame'))
+			let subcontractList = '//*[@id="registerItems"]/tbody/tr[4]/td[2]/a'
+			await frame1.waitForSelector(subcontractList)
+			await frame1.hover(subcontractList)
+			await frame1.click(subcontractList)
+		})
+
+		/*
+		Assume that out environment is AUTO APPROVAL
+		We will select the first subcontract that has a state of APPROVED - ISSUED. 
+		*/
+		step('Step 7 - Select APPROVED subcontract and create subcontract variation', async browser => {
+			const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocRegRegFrame'))
+			let subcontract = '#GridReport_1502395747 > div.k-grid-content.k-auto-scrollable.exclude-footer > table > tbody > tr:nth-child(17)'
+			await frame1.waitForSelector(subcontract)
+			await frame1.click(subcontract)
+
+			let subcontractVariation = '#titidMenu120'
+			await frame1.waitForSelector(subcontractVariation)
+			await frame1.click(subcontractVariation)
+		})
+
+		step('Step 10 - Create subcontractor variation for: CTRC: AP-10169#0007 ', async browser => {
 			
 			await browser.visit(Constants.CONTRACTVARIATIONFORM)
 			await browser.takeScreenshot()	
 		})
 
-		step('Step 5 - Enter Title', async browser => {
+		step('Step 11 - Enter Title', async browser => {
 			
 			const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
 			let title = '#tt'
@@ -79,7 +129,7 @@ import dataGeneration from '../data/dataGeneration';
 			
 		})
 
-		step('Step 6 - Change the Due Date', async browser => {
+		step('Step 12 - Change the Due Date', async browser => {
 		
 			const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
 			
@@ -94,7 +144,7 @@ import dataGeneration from '../data/dataGeneration';
 			await browser.takeScreenshot()
 		})	
 
-		step('Step 7 - Fill in Description of Variation', async browser => {
+		step('Step 13 - Fill in Description of Variation', async browser => {
 			
 			const signature = `
 			L         OOO        L
@@ -115,7 +165,7 @@ import dataGeneration from '../data/dataGeneration';
 			await browser.takeScreenshot()
 		})
 
-		step('Step 8 - Selection of Dropdown Menu Options', async browser => {
+		step('Step 14 - Selection of Dropdown Menu Options', async browser => {
 			
 			const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))	
 			
@@ -146,7 +196,7 @@ import dataGeneration from '../data/dataGeneration';
 			await browser.takeScreenshot()
 		})
 		
-		step('Step 9 - Select Budget Line', async browser => {
+		step('Step 15 - Select Budget Line', async browser => {
 			
 			const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
 			let arrowList = '//*[@id="tr.001"]/td[10]/span/span/span[2]'

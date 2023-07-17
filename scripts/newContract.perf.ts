@@ -75,6 +75,7 @@ export default () => {
 		await browser.takeScreenshot()
 	})
 
+
 	step('Step 6 - Change the due date', async browser => {
 		
 		const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
@@ -83,7 +84,7 @@ export default () => {
 		await frame1.waitForSelector(dueDate)
 		await frame1.click(dueDate)
 
-		let chooseDate = '#cal_content > table > tbody > tr:nth-child(5) > td:nth-child(6) > a'
+		let chooseDate = '#cal_content > table > tbody > tr:nth-child(6) > td:nth-child(2) > a'
 		await frame1.waitForSelector(chooseDate)
 		await frame1.click(chooseDate) 
 
