@@ -1,9 +1,12 @@
 import { step, TestSettings, By, beforeAll, afterAll, Until, Key } from '@flood/element';
 import assert from "assert";
-import Constants from '../data/Constants';
-//import dataGeneration from '../data/dataGeneration';
-import {numberRange} from '../data/random.js';
+import Constants from './Constants';
 
+function numberRange(min, max){
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random()*(max-min + 1)) + min;
+}
 
 export const settings: TestSettings = {
 	userAgent: 'flood-facto-test',
@@ -16,11 +19,11 @@ export const settings: TestSettings = {
 	actionDelay: 1.5,
 	stepDelay: 2.5,
 	browser: 'chromium', 
-	loopCount: 1,
+	//loopCount: 1,
 }
 
 export default () => {
-	
+
 	beforeAll(async browser => {
 		await browser.wait('1500ms')
 	})

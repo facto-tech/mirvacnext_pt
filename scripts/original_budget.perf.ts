@@ -1,7 +1,8 @@
 import { step, TestSettings, By, beforeAll, afterAll } from '@flood/element';
 import assert from "assert";
 import Constants from '../data/Constants';
-import DataGeneration from '../data/DataGeneration';
+//import DataGeneration from '../data/DataGeneration';
+import {numberRange} from '../data/random.js';
 
 export const settings: TestSettings = {
 	userAgent: 'flood-facto-test',

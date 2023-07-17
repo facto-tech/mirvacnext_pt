@@ -1,8 +1,8 @@
 import { step, TestSettings, By, beforeAll, afterAll, Until, Key } from '@flood/element';
 import assert from "assert";
 import Constants from '../data/Constants';
-import dataGeneration from '../data/dataGeneration';
-import dataGeneration from '../data/dataGeneration';
+//import dataGeneration from '../data/dataGeneration';
+import {numberRange} from '../data/random.js';
 
 	
 	export const settings: TestSettings = {
@@ -90,30 +90,30 @@ import dataGeneration from '../data/dataGeneration';
 		Assume that out environment is AUTO APPROVAL
 		We will select the first subcontract that has a state of APPROVED - ISSUED. 
 		*/
-		step('Step 5 - Test', async browser => {
+		step('Step 5 - Select Subcontract', async browser => {
 			const frame1 = browser.page.frames().find((frame) => frame.name().includes('mainFrame'))
 			let contract = '//*[@id="GridReport_1833421196"]/div[2]/table/tbody/tr[1]/td[1]'
 			await frame1.waitForSelector(contract)
 			await frame1.click(contract)
 		})
 
-		step('Step 10 - Create subcontractor variation for: CTRC: AP-10169#0007 ', async browser => {
+		step('Step 6 - Create subcontractor variation for: CTRC: AP-10169#0007 ', async browser => {
 			
 			await browser.visit(Constants.CONTRACTVARIATIONFORM)
 			await browser.takeScreenshot()	
 		})
 
-		step('Step 11 - Enter Title', async browser => {
+		step('Step 7 - Enter Title', async browser => {
 			
 			const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
 			let title = '#tt'
 			await frame1.waitForSelector(title)
-			await frame1.type(title, 'Flood Test - ' + dataGeneration.randomNumber)
+			await frame1.type(title, 'Flood Test - ' + numberRange(1000,100000))
 			await browser.takeScreenshot()
 			
 		})
 
-		step('Step 12 - Change the Due Date', async browser => {
+		step('Step 8 - Change the Due Date', async browser => {
 		
 			const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
 			
@@ -128,15 +128,10 @@ import dataGeneration from '../data/dataGeneration';
 			await browser.takeScreenshot()
 		})	
 
-		step('Step 13 - Fill in Description of Variation', async browser => {
+		step('Step 9 - Fill in Description of Variation', async browser => {
 			
 			const signature = `
-			L         OOO        L
-			L        O   O       L
-			L        O   O       L
-			L        O   O       L
-			L        O   O       L
-			LLLLL     OOO        LLLLL   			
+			Facto-Flood-PT  			
 			`
 
 			const frame1 = browser.page.frames().find((frame) => frame.name().includes('USR_VARDES_ifr'))
@@ -149,7 +144,7 @@ import dataGeneration from '../data/dataGeneration';
 			await browser.takeScreenshot()
 		})
 
-		step('Step 14 - Selection of Dropdown Menu Options', async browser => {
+		step('Step 10 - Selection of Dropdown Menu Options', async browser => {
 			
 			const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))	
 			
@@ -180,7 +175,7 @@ import dataGeneration from '../data/dataGeneration';
 			await browser.takeScreenshot()
 		})
 		
-		step('Step 15 - Select Budget Line', async browser => {
+		step('Step 11 - Select Budget Line', async browser => {
 			
 			const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
 			let arrowList = '//*[@id="tr.001"]/td[10]/span/span/span[2]'
@@ -190,7 +185,7 @@ import dataGeneration from '../data/dataGeneration';
 			await browser.sendKeys(Key.ENTER)
 		})
 
-		step('Step 10 - Set Rate', async browser => {
+		step('Step 12 - Set Rate', async browser => {
 			
 			const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
 			
@@ -209,7 +204,7 @@ import dataGeneration from '../data/dataGeneration';
 			await browser.takeScreenshot()
 		})
 
-		step('Step 11 - Submit for Approval', async browser => {
+		step('Step 13 - Submit for Approval', async browser => {
 	
 			const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewButFrame'))
 			let submitButton = '#idMenu271958'

@@ -20,7 +20,7 @@ function generateRandomWord() {
 
 // random phrase
 function generateRandomPhrase() {
-  const phrases = ['Hello world', 'simplicity is key', 'You're the best', 'Programming is fun'];
+  const phrases = ['Hello world', 'simplicity is key', "You're the best", 'Programming is fun'];
   const randomIndex = Math.floor(Math.random() * phrases.length);
   return phrases[randomIndex];
 }

@@ -1,6 +1,6 @@
 import { step, TestSettings, By, beforeAll, afterAll } from '@flood/element';
 import assert from "assert";
-import constantsPC from '../data/constantsPC';
+import Constants from '../data/Constants';
 
 
 export const settings: TestSettings = {
@@ -26,7 +26,7 @@ export default () => {
 	})
 
 	step('Step 1 - Load URL', async browser => {
-		await browser.visit(constantsPC.URL)
+		await browser.visit(Constants.ALTURL)
 		await browser.takeScreenshot()
 	})
 
@@ -38,10 +38,10 @@ export default () => {
 	step('Step 3 - Login', async browser => {
 		
 		const login = await browser.findElement(By.css('#nme'))
-		await login.type(constantsPC.ITWOCXLOGIN)
+		await login.type(Constants.ITWOCXUSERNAME)
 
 		const password = await browser.findElement(By.css('#pwd'))
-		await password.type(constantsPC.ITWOPASS)
+		await password.type(Constants.ITWOCXPASSWORD)
 
 		await browser.takeScreenshot()
 
@@ -52,7 +52,7 @@ export default () => {
 
 	step('Step 4 - Open Subcontractor Payment Claim', async browser => {
 
-		await browser.visit(constantsPC.FORMURL1)
+		await browser.visit(Constants.FORMURL)
 		await browser.takeScreenshot()	
 	})
 
