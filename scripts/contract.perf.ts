@@ -1,7 +1,3 @@
-/*
-@author: Duy
-*/
-
 import { step, TestSettings, By, beforeAll, afterAll, Until, Key } from '@flood/element';
 import assert from "assert";
 import Constants from '../data/Constants';
@@ -32,7 +28,7 @@ export default () => {
 	})
 
 	step('Step 1 - Load URL', async browser => {
-		await browser.visit(Constants.ALTURL)
+		await browser.visit(Constants.URL3)
 		await browser.takeScreenshot()
 	})
 
@@ -75,29 +71,31 @@ export default () => {
 		const listTarget = await browser.switchTo()
 		listTarget.frame("DocRegRegFrame")
 
-		const acforms = await browser.findElement(By.css('#registerItems > tbody > tr:nth-child(3) > td:nth-child(2) > a'))
+		
+		//const acforms = await browser.findElement(By.css('#registerItems > tbody > tr:nth-child(3) > td:nth-child(2) > a'))
+		const acforms = await browser.findElement(By.css('#registerItems > tbody > tr:nth-child(13) > td:nth-child(2) > a'))
 		await acforms.click()
 
 		await browser.takeScreenshot()
 	})
 
-	step('Step 5 - Select CTRA&C', async browser => {
+	// step('Step 5 - Select CTRA&C', async browser => {
 		
-		const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocRegRegFrame'))
-		let title = '//*[@id="registerItems"]/tbody/tr[3]/td[2]/a'
-		await frame1.waitForSelector(title)
-		await frame1.hover(title)
-		await frame1.click(title)
-	})	
+	// 	const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocRegRegFrame'))
+	// 	let title = '//*[@id="registerItems"]/tbody/tr[3]/td[2]/a'
+	// 	await frame1.waitForSelector(title)
+	// 	await frame1.hover(title)
+	// 	await frame1.click(title)
+	// })	
 
-	step('Step 6 - Show subcontract List', async browser => {
+	// step('Step 6 - Show subcontract List', async browser => {
 		
-		const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocRegRegFrame'))
-		let subcontractList = '//*[@id="registerItems"]/tbody/tr[4]/td[2]/a'
-		await frame1.waitForSelector(subcontractList)
-		await frame1.hover(subcontractList)
-		await frame1.click(subcontractList)
-	})
+	// 	const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocRegRegFrame'))
+	// 	let subcontractList = '//*[@id="registerItems"]/tbody/tr[4]/td[2]/a'
+	// 	await frame1.waitForSelector(subcontractList)
+	// 	await frame1.hover(subcontractList)
+	// 	await frame1.click(subcontractList)
+	// })
 
 	step('Step 7 - Create new subcontract & Enter Title', async browser => {
 		
@@ -229,7 +227,7 @@ export default () => {
 	step('Step 13 - Submit for Approval', async browser => {
 	
 		const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewButFrame'))
-		let submitButton = '#titidMenu271844'
+		let submitButton = '//*[@id="titidMenu320444"]'
 		await frame1.waitForSelector(submitButton)
 		await frame1.click(submitButton)
 		await browser.wait('10000ms') //Wait 8 seconds so that the form is submited and shown

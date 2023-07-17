@@ -30,7 +30,7 @@ import dataGeneration from '../data/dataGeneration';
 		})
 	
 		step('Step 1 - Load URL', async browser => {
-			await browser.visit(Constants.ALTURL)
+			await browser.visit(Constants.URL3)
 			await browser.takeScreenshot()
 		})
 	
@@ -57,6 +57,7 @@ import dataGeneration from '../data/dataGeneration';
 			await loginButton.click()
 	
 		})
+
 		step('Step 4 -Navigate to A&C Construction Forms', async browser => {
 		
 			const mainTarget = await browser.switchTo()
@@ -74,43 +75,26 @@ import dataGeneration from '../data/dataGeneration';
 			const listTarget = await browser.switchTo()
 			listTarget.frame("DocRegRegFrame")
 	
-			const acforms = await browser.findElement(By.css('#registerItems > tbody > tr:nth-child(3) > td:nth-child(2) > a'))
+			
+			//const acforms = await browser.findElement(By.css('#registerItems > tbody > tr:nth-child(3) > td:nth-child(2) > a'))
+			const acforms = await browser.findElement(By.css('#registerItems > tbody > tr:nth-child(13) > td:nth-child(2) > a'))
 			await acforms.click()
 	
 			await browser.takeScreenshot()
 		})
 
-		step('Step 5 - Select CTRA&C', async browser => {
 		
-			const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocRegRegFrame'))
-			let title = '//*[@id="registerItems"]/tbody/tr[3]/td[2]/a'
-			await frame1.waitForSelector(title)
-			await frame1.hover(title)
-			await frame1.click(title)
-		})	
 
-		step('Step 6 - Show subcontract List', async browser => {
-		
-			const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocRegRegFrame'))
-			let subcontractList = '//*[@id="registerItems"]/tbody/tr[4]/td[2]/a'
-			await frame1.waitForSelector(subcontractList)
-			await frame1.hover(subcontractList)
-			await frame1.click(subcontractList)
-		})
 
 		/*
 		Assume that out environment is AUTO APPROVAL
 		We will select the first subcontract that has a state of APPROVED - ISSUED. 
 		*/
-		step('Step 7 - Select APPROVED subcontract and create subcontract variation', async browser => {
-			const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocRegRegFrame'))
-			let subcontract = '#GridReport_1502395747 > div.k-grid-content.k-auto-scrollable.exclude-footer > table > tbody > tr:nth-child(17)'
-			await frame1.waitForSelector(subcontract)
-			await frame1.click(subcontract)
-
-			let subcontractVariation = '#titidMenu120'
-			await frame1.waitForSelector(subcontractVariation)
-			await frame1.click(subcontractVariation)
+		step('Step 5 - Test', async browser => {
+			const frame1 = browser.page.frames().find((frame) => frame.name().includes('mainFrame'))
+			let contract = '//*[@id="GridReport_1833421196"]/div[2]/table/tbody/tr[1]/td[1]'
+			await frame1.waitForSelector(contract)
+			await frame1.click(contract)
 		})
 
 		step('Step 10 - Create subcontractor variation for: CTRC: AP-10169#0007 ', async browser => {
