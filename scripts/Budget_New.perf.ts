@@ -82,55 +82,59 @@ export default () => {
 		await browser.takeScreenshot()
 	})
 
-	step('Step 6 - Enter supporting doc fields - doc name  ', async browser => {
+	step('Step 6 - Enter supporting fields - approver details  ', async browser => {
 	
-	//doc name
+	//approver details
 
-		let title = '#tblPCTB149\/DOCNM_1'
-		await frame1.type('TESTDOCNAME')
-		await browser.takeScreenshot()		
+	const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewNewFrame'))
+	let arrowButton = '#USR_ZONE'
+	await frame1.waitForSelector(arrowButton)
+	await frame1.click(arrowButton)
+	await browser.sendKeys(Key.DOWN)
+	await browser.sendKeys(Key.ENTER)
+	
+	let arrowButton2 = '#USR_JOBCODE'
+	await frame1.waitForSelector(arrowButton2)
+	await frame1.click(arrowButton2)
+	await browser.sendKeys(Key.DOWN)
+	await browser.sendKeys(Key.ENTER)
+
+
+
+	await browser.takeScreenshot()		
 
     })
 
-	step('Step 7 - Enter budget fields - doc type  ', async browser => {
-	
-    //doc type
-    
-    const triggerElement = By.css('#tblPCTB149\/BGTDOCTYP_1')
-    await browser.click(triggerElement)
-    await browser.click(By.visibleText('Head Contract'))
-    await browser.takeScreenshot()	
-    
-    })
+	step('Step 7 - Enter fields - cost code  ', async browser => {
 
-    //step('Step 8 - Enter budget fields - attachments  ', async browser => {
-	
-    //attachments
-        
-    //const triggerElement = By.css('#BUTTON_tblPCTB149\/DOCATT_1 > img')
-    //await browser.click(triggerElement)
-    //await browser.click(By.visibleText('Select files...'))
-    //await browser.takeScreenshot()	
-        
-    //})
+	//cost code
 
-
-	step('Step 8 - Enter fields - cat code  ', async browser => {
-
-	//cat code
+	const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewNewFrame'))
+	let openContract = '//*[@id="tr.001"]/td[8]'
+	await frame1.click(openContract)
+	let arrowButton1 = '#caEditTable'
+	await frame1.click(arrowButton1)
+	await browser.sendKeys(Key.DOWN)
+	await browser.sendKeys(Key.ENTER)
 		
-	const title = await browser.findElement(By.css('#caEditTable > tbody > tr:nth-child(2) > td.buttonsTd > input:nth-child(1)'))
-	await title.type('TESTCATCODE')
+	//const title = await browser.findElement(By.css('#caEditTable > tbody > tr:nth-child(2) > td.buttonsTd > input:nth-child(1)'))
+	//await title.type('TESTCATCODE')
 	await browser.takeScreenshot()
 				
 		})
 
-	step('Step 9 - Enter fields - quantity  ', async browser => {
+	step('Step 9 - Enter fields - budget  ', async browser => {
 
-	//quantity
+	//budget
+	const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewNewFrame'))
+	let openContract = '//*[@id="tr.001"]/td[8]'
+	await frame1.click(openContract)
+	let inputBudget = '//*[@id="Budget"]'
+	await frame1.type(inputBudget, 'Flood Test -' + randomNumber)
 
-	const title = await browser.findElement(By.css('#caEditTable > tbody > tr:nth-child(2) > td.buttonsTd > input:nth-child(2)'))
-	await title.type(numberRange(1000,100000))
+
+	//const title = await browser.findElement(By.css('#Budget'))
+	//await title.type(numberRange(1000,100000))
 	await browser.takeScreenshot()
 		
 })
@@ -138,8 +142,13 @@ export default () => {
 
 step('Step 10 - Submit to Mirvac for approval', async browser => {
 
-	await browser.click(By.css('#idMenu271984'))
-	await browser.takeScreenshot()	
+	const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewButFrame'))
+	let submitButton = '#titidMenu320443'
+	await frame1.waitForSelector(submitButton)
+	await frame1.click(submitButton)
+	await browser.wait('8000ms') 
+
+	await browser.takeScreenshot()
 	
 })
 }
