@@ -36,7 +36,7 @@ function numberRange(min, max){
 		})
 	
 		step('Step 1 - Load URL', async browser => {
-			await browser.visit(Constants.URL3)
+			await browser.visit(Constants.UATURL)
 			await browser.takeScreenshot()
 		})
 	
@@ -96,7 +96,7 @@ function numberRange(min, max){
 
 		step('Step 5 - Create subcontractor variation for: CTRC: AP-10163#0006 ', async browser => {
 			
-			await browser.visit(Constants.CONTRACTVARIATIONFORM)
+			await browser.visit('https://mirvac.itwocx.com/cxR/cx.aspx?page=docs/DocNew0&j=MGR-ENT-MST-001-UAT&dsid=67282&i=2013023&m=f&d=&mdu=CTR&f=CTRC&questionLogId=&tenderPackageId=')
 			await browser.takeScreenshot()	
 		})
 
