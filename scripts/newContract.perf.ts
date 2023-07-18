@@ -30,7 +30,7 @@ export default () => {
 	})
 
 	step('Step 1 - Load URL', async browser => {
-		await browser.visit(Constants.ALTURL)
+		await browser.visit(Constants.UATURL)
 		await browser.takeScreenshot()
 	})
 
@@ -48,8 +48,8 @@ export default () => {
         const password = By.css('#pwd')
         await browser.wait(Until.elementIsVisible(password))
         
-        await browser.type(username, Constants.ITWOCXUSERNAME)
-        await browser.type(password, Constants.ITWOCXPASSWORD)
+        await browser.type(username, Constants.UATUSERNAME)
+        await browser.type(password, Constants.UATPASSWORD)
 
         await browser.takeScreenshot()
 
@@ -60,7 +60,7 @@ export default () => {
 
     step('Step 4 - Redirect to the form link', async browser => {
 
-		await browser.visit(Constants.FORMURL)
+		await browser.visit(Constants.UATSUBCONTRACTURL)
 		await browser.takeScreenshot()	
 	})
 
@@ -167,6 +167,7 @@ export default () => {
 		await frame1.click(insertButton)
 
 		let arrowList = '//*[@id="tr.001"]/td[10]/span/span/span[2]'
+		//let arrowList = '#tr\.001 > td.linkedBudgetLine.skipRowClick > span > span > span.k-select'
 		await frame1.waitForSelector(arrowList)
 		await frame1.click(arrowList)
 		await browser.sendKeys(Key.DOWN)
@@ -197,7 +198,7 @@ export default () => {
 	step('Step 11 - Submit for Approval', async browser => {
 	
 	const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewButFrame'))
-	let submitButton = '#titidMenu271844'
+	let submitButton = '#titidMenu320444'
 	await frame1.waitForSelector(submitButton)
 	await frame1.click(submitButton)
 	await browser.wait('8000ms') //Wait for 8 seconds for the result to appear

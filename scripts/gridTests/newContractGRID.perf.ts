@@ -11,7 +11,7 @@ function numberRange(min, max){
 export const settings: TestSettings = {
 	userAgent: 'flood-facto-test',
 	waitUntil: 'visible',
-	description: 'iTwoCX Contract ',
+	description: 'iTwoCX New Contract',
 	screenshotOnFailure: true,
 	disableCache: true,
 	clearCache: true,
@@ -19,7 +19,7 @@ export const settings: TestSettings = {
 	actionDelay: 1.5,
 	stepDelay: 2.5,
 	browser: 'chromium', 
-	//loopCount: 1,
+	loopCount: Infinity,
 }
 
 export default () => {
