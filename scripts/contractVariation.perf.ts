@@ -30,7 +30,7 @@ import {numberRange} from '../data/random.js';
 		})
 	
 		step('Step 1 - Load URL', async browser => {
-			await browser.visit(Constants.URL3)
+			await browser.visit(Constants.UATURL)
 			await browser.takeScreenshot()
 		})
 	
@@ -48,8 +48,8 @@ import {numberRange} from '../data/random.js';
 			const password = By.css('#pwd')
 			await browser.wait(Until.elementIsVisible(password))
 			
-			await browser.type(username, Constants.ITWOCXUSERNAME)
-			await browser.type(password, Constants.ITWOCXPASSWORD)
+			await browser.type(username, Constants.UATUSERNAME)
+			await browser.type(password, Constants.UATPASSWORD)
 	
 			await browser.takeScreenshot()
 	
