@@ -1,8 +1,7 @@
 import { step, TestSettings, By, beforeAll, afterAll, Until, Key } from '@flood/element';
 import assert from "assert";
 import Constants from '../data/Constants';
-//import dataGeneration from '../data/dataGeneration';
-import {numberRange} from '../data/random.js';
+import dataGeneration from '../data/dataGeneration';
 
 
 export const settings: TestSettings = {
@@ -30,7 +29,7 @@ export default () => {
 	})
 
 	step('Step 1 - Load URL', async browser => {
-		await browser.visit(Constants.UATURL)
+		await browser.visit(Constants.ALTURL)
 		await browser.takeScreenshot()
 	})
 
@@ -48,8 +47,8 @@ export default () => {
         const password = By.css('#pwd')
         await browser.wait(Until.elementIsVisible(password))
         
-        await browser.type(username, Constants.UATUSERNAME)
-        await browser.type(password, Constants.UATPASSWORD)
+        await browser.type(username, Constants.ITWOCXUSERNAME)
+        await browser.type(password, Constants.ITWOCXPASSWORD)
 
         await browser.takeScreenshot()
 
@@ -60,7 +59,7 @@ export default () => {
 
     step('Step 4 - Redirect to the form link', async browser => {
 
-		await browser.visit(Constants.UATSUBCONTRACTURL)
+		await browser.visit(Constants.FORMURL)
 		await browser.takeScreenshot()	
 	})
 
@@ -71,7 +70,7 @@ export default () => {
 		let title = '#tt'
 
 		await frame1.waitForSelector(title)
-		await frame1.type(title, 'Flood Test - ') //+ dataGeneration.randomNumber)
+		await frame1.type(title, 'Flood Test - ' + dataGeneration.randomNumber)
 
 		await browser.takeScreenshot()
 	})
@@ -167,7 +166,6 @@ export default () => {
 		await frame1.click(insertButton)
 
 		let arrowList = '//*[@id="tr.001"]/td[10]/span/span/span[2]'
-		//let arrowList = '#tr\.001 > td.linkedBudgetLine.skipRowClick > span > span > span.k-select'
 		await frame1.waitForSelector(arrowList)
 		await frame1.click(arrowList)
 		await browser.sendKeys(Key.DOWN)
@@ -186,8 +184,8 @@ export default () => {
 
 		let inputForm = '//*[@id="caEditTable"]/tbody/tr/td/table/tbody/tr[2]/td[7]/input'
 		await frame1.waitForSelector(inputForm)
-		//await frame1.type(inputForm, dataGeneration.randomNumber.toString())
-		await frame1.type(inputForm, numberRange(100,100000).toString())
+		await frame1.type(inputForm, dataGeneration.randomNumber.toString())
+
 		let insertButton = '//*[@id="rowsEditor"]/tbody/tr/td[2]/input[2]'
 		await frame1.waitForSelector(insertButton)
 		await frame1.click(insertButton)
@@ -198,7 +196,7 @@ export default () => {
 	step('Step 11 - Submit for Approval', async browser => {
 	
 	const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewButFrame'))
-	let submitButton = '#titidMenu320444'
+	let submitButton = '#titidMenu271844'
 	await frame1.waitForSelector(submitButton)
 	await frame1.click(submitButton)
 	await browser.wait('8000ms') //Wait for 8 seconds for the result to appear

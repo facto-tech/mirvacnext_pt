@@ -1,10 +1,16 @@
 import { step, TestSettings, By, beforeAll, afterAll, Until, Key } from '@flood/element';
 import assert from "assert";
 import Constants from '../data/Constants';
-//import dataGeneration from '../data/dataGeneration';
-import {numberRange} from '../data/random.js';
+import dataGeneration from '../data/dataGeneration';
+import dataGeneration from '../data/dataGeneration';
 
-	
+function numberRange(min, max){
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random()*(max-min + 1)) + min;
+
+}
+
 	export const settings: TestSettings = {
 		userAgent: 'flood-facto-test',
 		waitUntil: 'visible',
@@ -30,7 +36,7 @@ import {numberRange} from '../data/random.js';
 		})
 	
 		step('Step 1 - Load URL', async browser => {
-			await browser.visit(Constants.UATURL)
+			await browser.visit(Constants.URL3)
 			await browser.takeScreenshot()
 		})
 	
@@ -48,8 +54,8 @@ import {numberRange} from '../data/random.js';
 			const password = By.css('#pwd')
 			await browser.wait(Until.elementIsVisible(password))
 			
-			await browser.type(username, Constants.UATUSERNAME)
-			await browser.type(password, Constants.UATPASSWORD)
+			await browser.type(username, Constants.ITWOCXUSERNAME)
+			await browser.type(password, Constants.ITWOCXPASSWORD)
 	
 			await browser.takeScreenshot()
 	
@@ -58,7 +64,7 @@ import {numberRange} from '../data/random.js';
 	
 		})
 
-		step('Step 4 -Navigate to A&C Construction Forms', async browser => {
+		step('Step 4 - Show subcontract list', async browser => {
 		
 			const mainTarget = await browser.switchTo()
 			mainTarget.frame("outframe")
@@ -83,37 +89,29 @@ import {numberRange} from '../data/random.js';
 			await browser.takeScreenshot()
 		})
 
-		
-
-
 		/*
-		Assume that out environment is AUTO APPROVAL
-		We will select the first subcontract that has a state of APPROVED - ISSUED. 
+		
+		We will select the first subcontract and create a subcontract variation fron it. 
 		*/
-		step('Step 5 - Select Subcontract', async browser => {
-			const frame1 = browser.page.frames().find((frame) => frame.name().includes('mainFrame'))
-			let contract = '//*[@id="GridReport_1833421196"]/div[2]/table/tbody/tr[1]/td[1]'
-			await frame1.waitForSelector(contract)
-			await frame1.click(contract)
-		})
 
-		step('Step 6 - Create subcontractor variation for: CTRC: AP-10169#0007 ', async browser => {
+		step('Step 5 - Create subcontractor variation for: CTRC: AP-10163#0006 ', async browser => {
 			
 			await browser.visit(Constants.CONTRACTVARIATIONFORM)
 			await browser.takeScreenshot()	
 		})
 
-		step('Step 7 - Enter Title', async browser => {
-			
+		step('Step 6 - Enter Title', async browser => {
+			const randNum = numberRange(100, 10000) 
 			const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
 			let title = '#tt'
 			await frame1.waitForSelector(title)
-			await frame1.type(title, 'Flood Test - ' + numberRange(1000,100000))
+			await frame1.type(title, 'Variation - ' + randNum + ' ')
+
 			await browser.takeScreenshot()
 			
 		})
 
-		step('Step 8 - Change the Due Date', async browser => {
+		step('Step 7 - Change the Due Date', async browser => {
 		
 			const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
 			
@@ -121,72 +119,55 @@ import {numberRange} from '../data/random.js';
 			await frame1.waitForSelector(dueDate)
 			await frame1.click(dueDate)
 	
-			let chooseDate = '#cal_content > table > tbody > tr:nth-child(5) > td:nth-child(6) > a'
+			let chooseDate = '#cal_content > table > tbody > tr:nth-child(6) > td:nth-child(3) > a'
 			await frame1.waitForSelector(chooseDate)
 			await frame1.click(chooseDate) 
 	
 			await browser.takeScreenshot()
 		})	
 
-		step('Step 9 - Fill in Description of Variation', async browser => {
-			
-			const signature = `
-			Facto-Flood-PT  			
-			`
-
-			const frame1 = browser.page.frames().find((frame) => frame.name().includes('USR_VARDES_ifr'))
-			
-			let descriptionBox = '//*[@id="tinymce"]'
-			await frame1.waitForSelector(descriptionBox)
-			await frame1.type(descriptionBox, 'The script is written by @Duy. :)')
-			await browser.sendKeys(Key.ENTER)
-			await frame1.type(descriptionBox, signature)	
-			await browser.takeScreenshot()
-		})
-
-		step('Step 10 - Selection of Dropdown Menu Options', async browser => {
+		step('Step 8 - Selection of Dropdown Menu Options', async browser => {
 			
 			const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))	
 			
-			let variationImpactButton = '//*[@id="DT912SPN"]/div/table/tbody/tr'
-			await frame1.waitForSelector(variationImpactButton)
-			await frame1.click(variationImpactButton)
+			let variationReason = '//*[@id="USR_BRFV"]'
+			await frame1.waitForSelector(variationReason)
+			await frame1.click(variationReason)
 			await browser.sendKeys(Key.DOWN)
 			await browser.sendKeys(Key.ENTER)
 
-			let warrantiesImpactedButton = '//*[@id="DT914SPN"]/div/table/tbody/tr'
-			await frame1.waitForSelector(warrantiesImpactedButton)
-			await frame1.click(warrantiesImpactedButton)
-			await browser.sendKeys(Key.DOWN)
-			await browser.sendKeys(Key.ENTER)
+			let variationNumber = '//*[@id="USR_YARDCHG"]'
+			await frame1.waitForSelector(variationNumber)
+			await frame1.type(variationNumber, numberRange(1000, 10000).toString())
 
-			let substantialImpactedButton = '//*[@id="DT916SPN"]/div/table/tbody/tr'
-			await frame1.waitForSelector(substantialImpactedButton)
-			await frame1.click(substantialImpactedButton)
-			await browser.sendKeys(Key.DOWN)
-			await browser.sendKeys(Key.ENTER)
+			await browser.takeScreenshot()
 
-			let scheduleRateButton = '//*[@id="DT918SPN"]/div/table/tbody/tr'
-			await frame1.waitForSelector(scheduleRateButton)
-			await frame1?.click(scheduleRateButton)
+			let variationCategory = '//*[@id="USR_VARCAT"]'
+			await frame1.waitForSelector(variationCategory)
+			await frame1.click(variationCategory)
 			await browser.sendKeys(Key.DOWN)
 			await browser.sendKeys(Key.ENTER)
 
 			await browser.takeScreenshot()
 		})
 		
-		step('Step 11 - Select Budget Line', async browser => {
+		step('Step 9 - Fill in Description of Variation', async browser => {
 			
-			const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
-			let arrowList = '//*[@id="tr.001"]/td[10]/span/span/span[2]'
-			await frame1.waitForSelector(arrowList)
-			await frame1.click(arrowList)
-			await browser.sendKeys(Key.DOWN)
+			const signature = 'Facto Mirvac PT'		
+			
+
+			const frame1 = browser.page.frames().find((frame) => frame.name().includes('USR_VARDES_ifr'))
+			
+			let descriptionBox = '//*[@id="tinymce"]'
+			await frame1.waitForSelector(descriptionBox)
 			await browser.sendKeys(Key.ENTER)
+			await frame1.type(descriptionBox, signature)	
+
+			await browser.takeScreenshot()
 		})
 
-		step('Step 12 - Set Rate', async browser => {
-			
+		step('Step 11 - Set Rate', async browser => {
+			const randRate = numberRange(1, 100) 
 			const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
 			
 			let rate = '//*[@id="tr.001"]/td[14]'
@@ -195,26 +176,37 @@ import {numberRange} from '../data/random.js';
 
 			let inputForm = '//*[@id="caEditTable"]/tbody/tr/td/table/tbody/tr[2]/td[6]/input'
 			await frame1.waitForSelector(inputForm)
-			await frame1.type(inputForm, dataGeneration.randomNumber.toString())
+			await frame1.type(inputForm, randRate.toString())
 
 			let insertButton = '//*[@id="rowsEditor"]/tbody/tr/td[2]/input[2]'
 			await frame1.waitForSelector(insertButton)
 			await frame1.click(insertButton)
 
+			
+			let arrowList = '//*[@id="tr.001"]/td[10]/span/span/span[2]'
+			await frame1.waitForSelector(arrowList)
+			await frame1.click(arrowList)
+			await browser.sendKeys(Key.DOWN)
+			await browser.sendKeys(Key.DOWN)
+			await browser.sendKeys(Key.ENTER)
+
 			await browser.takeScreenshot()
 		})
 
-		step('Step 13 - Submit for Approval', async browser => {
-	
+		step('Step 12 - Submit for Approval', async browser => {
+			
 			const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewButFrame'))
-			let submitButton = '#idMenu271958'
+			let submitButton = '//*[@id="titidMenu320448"]'
 			await frame1.waitForSelector(submitButton)
 			await frame1.click(submitButton)
-			
 			await browser.wait('8000ms') //Wait for 8 seconds for the result to appear
 
+			await frame1.click(submitButton)
+		
 			await browser.takeScreenshot()
-			})
+			
+		
+		})
 }
 
 
