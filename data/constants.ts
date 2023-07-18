@@ -8,13 +8,13 @@ class Constants {
     ITWOCXUSERNAME = 'mrc_ca_1@mailinator.com';
     ITWOCXPASSWORD = 'Project123!';
 
-    UATURL = 'https://mirvac.itwocx.com/MGR-ENT-MST-001-UAT';
+    UATURL = 'https://mirvac-uat.itwocx.com/MGR-UAT-20131';
     UATUSERNAME = 'mrc_ca_1@mailinator.com';
     UATPASSWORD = 'Project123!';
-    UATPROGRESSURL = 'https://mirvac.itwocx.com/cxR/cx.aspx?page=docs/DocNew0&j=MGR-ENT-MST-001-UAT&dsid=67224&i=1881716&m=f&d=&mdu=CTR&f=CTRC&questionLogId=&tenderPackageId=';
-    UATSUBCONTRACTURL = 'https://mirvac.itwocx.com/cxR/cx.aspx?page=Docs/docnew2tree&j=MGR-ENT-MST-001-UAT&dsid=67228&mdu=CTR&t=67228&m=&i=&transID=&reportId=&due=';
-    UATBUDGETVAR = 'https://mirvac.itwocx.com/cxR/cx.aspx?page=Docs/docnew2tree&j=MGR-ENT-MST-001-UAT&dsid=67216&mdu=VARB&t=67216&m=&i=&transID=&reportId=&due=';
-    UATNEWBUDGET = 'https://mirvac.itwocx.com/cxR/cx.aspx?page=docs/DocNew0&j=MGR-ENT-MST-001-UAT&dsid=67200&m=&mdu=&bid=&d=&i=&f=&filelist=&linkdocid=&tnd=&transID=&reportID=&due=&z=45125.4681342708';
+   //Need to create data first! UATPROGRESSURL = 'https://mirvac.itwocx.com/cxR/cx.aspx?page=docs/DocNew0&j=MGR-ENT-MST-001-UAT&dsid=67224&i=1881716&m=f&d=&mdu=CTR&f=CTRC&questionLogId=&tenderPackageId=';
+    UATSUBCONTRACTURL = 'https://mirvac-uat.itwocx.com/cxR/cx.aspx?page=docs/DocNew0&j=MGR-UAT-20131&dsid=69903&m=&mdu=&bid=&d=&i=&f=&filelist=&linkdocid=&tnd=&transID=&reportID=&due=&z=45126.4018181829';
+    UATBUDGETVAR = 'https://mirvac-uat.itwocx.com/cxR/cx.aspx?page=docs/DocNew0&j=MGR-UAT-20131&dsid=69891&m=&mdu=&bid=&d=&i=&f=&filelist=&linkdocid=&tnd=&transID=&reportID=&due=&z=45126.4018181829';
+    UATNEWBUDGET = 'https://mirvac-uat.itwocx.com/cxR/cx.aspx?page=docs/DocNew0&j=MGR-UAT-20131&dsid=69875&m=&mdu=&bid=&d=&i=&f=&filelist=&linkdocid=&tnd=&transID=&reportID=&due=&z=45126.4018181829';
 
     FORMURL = 'https://mirvac.itwocx.com/cxR/cx.aspx?page=Docs/docnew2tree&j=MIRVAC_AC_TMP_03&dsid=67349&mdu=CTR&t=67349&m=&i=&transID=&reportId=&due=';
     FORMTITLE = 'DN BP-T5261'
