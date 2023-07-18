@@ -196,7 +196,7 @@ export default () => {
 	step('Step 11 - Submit for Approval', async browser => {
 	
 	const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewButFrame'))
-	let submitButton = '#titidMenu271844'
+	let submitButton = '#titidMenu320444'
 	await frame1.waitForSelector(submitButton)
 	await frame1.click(submitButton)
 	await browser.wait('8000ms') //Wait for 8 seconds for the result to appear

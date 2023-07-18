@@ -26,7 +26,7 @@ export default () => {
 	})
 
 	step('Step 1 - Load URL', async browser => {
-		await browser.visit(Constants.ALTURL)
+		await browser.visit(Constants.UATURL)
 		await browser.takeScreenshot()
 	})
 
@@ -38,10 +38,10 @@ export default () => {
 	step('Step 3 - Login', async browser => {
 		
 		const login = await browser.findElement(By.css('#nme'))
-		await login.type(Constants.ITWOCXUSERNAME)
+		await login.type(Constants.UATUSERNAME)
 
 		const password = await browser.findElement(By.css('#pwd'))
-		await password.type(Constants.ITWOCXPASSWORD)
+		await password.type(Constants.UATPASSWORD)
 
 		await browser.takeScreenshot()
 

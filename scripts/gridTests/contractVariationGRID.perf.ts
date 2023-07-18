@@ -1,6 +1,5 @@
 import { step, TestSettings, By, beforeAll, afterAll, Until, Key } from '@flood/element';
 import assert from "assert";
-import Constants from '../data/Constants';
 
 function numberRange(min, max){
     min = Math.ceil(min);
@@ -20,7 +19,7 @@ function numberRange(min, max){
 		actionDelay: 1.5,
 		stepDelay: 2.5,
 		browser: 'chromium', 
-		loopCount: 1,
+		loopCount: Infinity,
 	}
 	
 	export default () => {
@@ -34,7 +33,7 @@ function numberRange(min, max){
 		})
 	
 		step('Step 1 - Load URL', async browser => {
-			await browser.visit(Constants.UATURL)
+			await browser.visit('https://mirvac.itwocx.com/MGR-ENT-MST-001-UAT')
 			await browser.takeScreenshot()
 		})
 	
@@ -52,8 +51,8 @@ function numberRange(min, max){
 			const password = By.css('#pwd')
 			await browser.wait(Until.elementIsVisible(password))
 			
-			await browser.type(username, Constants.UATUSERNAME)
-			await browser.type(password, Constants.UATPASSWORD)
+			await browser.type(username, 'mrc_ca_1@mailinator.com')
+			await browser.type(password, 'Project123!')
 	
 			await browser.takeScreenshot()
 	
@@ -103,7 +102,7 @@ function numberRange(min, max){
 			const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
 			let title = '#tt'
 			await frame1.waitForSelector(title)
-			await frame1.type(title, 'Variation - ' + randNum + ' ')
+			await frame1.type(title, 'Variation - ' + numberRange(100,10000).toString())
 
 			await browser.takeScreenshot()
 			

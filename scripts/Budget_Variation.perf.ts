@@ -1,6 +1,6 @@
 import { step, TestSettings, By, beforeAll, afterAll } from '@flood/element';
 import assert from "assert";
-import constants from '../data/constants';
+import Constants from '../data/Constants';
 
 
 export const settings: TestSettings = {
@@ -14,6 +14,7 @@ export const settings: TestSettings = {
 	actionDelay: 1.5,
 	stepDelay: 2.5,
 	loopCount: 1, 
+	browser: 'chromium',
 }
 
 export default () => {
@@ -26,7 +27,7 @@ export default () => {
 	})
 
 	step('Step 1 - Load URL', async browser => {
-		await browser.visit(constants.URL)
+		await browser.visit(constants.UATURL)
 		await browser.takeScreenshot()
 	})
 
@@ -38,10 +39,10 @@ export default () => {
 	step('Step 3 - Login', async browser => {
 		
 		const login = await browser.findElement(By.css('#nme'))
-		await login.type(constants.ITWOCXUSERNAME)
+		await login.type(constants.UATUSERNAME)
 
 		const password = await browser.findElement(By.css('#pwd'))
-		await password.type(constants.ITWOCXPASSWORD)
+		await password.type(constants.UATPASSWORD)
 
 		await browser.takeScreenshot()
 
@@ -54,7 +55,7 @@ export default () => {
 
 	step('Step 4 - Open BVRC > New ', async browser => {
 
-			await browser.visit(constants.URL4)
+			await browser.visit(constants.UATBUDGETVAR)
 			await browser.takeScreenshot()	
 
 	})
