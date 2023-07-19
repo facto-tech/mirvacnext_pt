@@ -1,8 +1,13 @@
 import { step, TestSettings, By, beforeAll, afterAll, Until, Key } from '@flood/element';
 import assert from "assert";
 import Constants from '../data/Constants';
-import dataGeneration from '../data/dataGeneration';
 
+
+function numberRange(min, max){
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random()*(max-min + 1)) + min;
+}
 
 export const settings: TestSettings = {
 	userAgent: 'flood-facto-test',
@@ -29,7 +34,7 @@ export default () => {
 	})
 
 	step('Step 1 - Load URL', async browser => {
-		await browser.visit(Constants.ALTURL)
+		await browser.visit('https://mirvac-uat.itwocx.com/MGR-UAT-20131')
 		await browser.takeScreenshot()
 	})
 
@@ -59,18 +64,18 @@ export default () => {
 
     step('Step 4 - Redirect to the form link', async browser => {
 
-		await browser.visit(Constants.FORMURL)
+		await browser.visit('https://mirvac-uat.itwocx.com/cxR/cx.aspx?page=Docs/docnew2tree&j=MGR-UAT-20131&dsid=69903&mdu=COR&t=69903&action=searchGrid_New')
 		await browser.takeScreenshot()	
 	})
 
 
 	step('Step 5 - Enter title', async browser => {
-
+		const randNum = numberRange(100, 10000) 
 		const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
 		let title = '#tt'
 
 		await frame1.waitForSelector(title)
-		await frame1.type(title, 'Flood Test - ' + dataGeneration.randomNumber)
+		await frame1.type(title, 'Flood Test - ' + randNum)
 
 		await browser.takeScreenshot()
 	})
@@ -84,7 +89,7 @@ export default () => {
 		await frame1.waitForSelector(dueDate)
 		await frame1.click(dueDate)
 
-		let chooseDate = '#cal_content > table > tbody > tr:nth-child(6) > td:nth-child(2) > a'
+		let chooseDate = '#cal_content > table > tbody > tr:nth-child(6) > td:nth-child(4) > a'
 		await frame1.waitForSelector(chooseDate)
 		await frame1.click(chooseDate) 
 
@@ -121,9 +126,13 @@ export default () => {
 		await frame1.waitForSelector(commitmentType)
 		await frame1.click(commitmentType)
 		await browser.sendKeys(Key.DOWN)
-		await browser.sendKeys(Key.DOWN)
 		await browser.sendKeys(Key.ENTER)
 
+		let paymentTerms = '#USR_PAYTN'
+		await frame1.waitForSelector(paymentTerms)
+		await frame1.click(paymentTerms)
+		await browser.sendKeys(Key.DOWN)
+		await browser.sendKeys(Key.ENTER)
 		await browser.takeScreenshot()
 
 	})
@@ -155,15 +164,15 @@ export default () => {
 	step('Step 9 - Link Budget', async browser => {
 		
 		const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewNewFrame'))
-		let arrowButton = '#divUsrForm > div.selectLinkedBudget'
-		await frame1.waitForSelector(arrowButton)
-		await frame1.click(arrowButton)
-		await browser.sendKeys(Key.DOWN)
-		await browser.sendKeys(Key.ENTER)
+		// let arrowButton = '#divUsrForm > div.selectLinkedBudget'
+		// await frame1.waitForSelector(arrowButton)
+		// await frame1.click(arrowButton)
+		// //await browser.sendKeys(Key.DOWN)
+		// await browser.sendKeys(Key.ENTER)
 
-		let insertButton = '#rowsEditor > tbody > tr > td.buttonsTd > input:nth-child(2)'
-		await frame1.waitForSelector(insertButton)
-		await frame1.click(insertButton)
+		// let insertButton = '#rowsEditor > tbody > tr > td.buttonsTd > input:nth-child(2)'
+		// await frame1.waitForSelector(insertButton)
+		// await frame1.click(insertButton)
 
 		let arrowList = '//*[@id="tr.001"]/td[10]/span/span/span[2]'
 		await frame1.waitForSelector(arrowList)
@@ -175,7 +184,7 @@ export default () => {
 	})
 
 	step('Step 10 - Set Rate', async browser => {
-			
+		const randNum = numberRange(1000, 1000000)	
 		const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
 		
 		let rate = '//*[@id="tr.001"]/td[15]'
@@ -184,22 +193,30 @@ export default () => {
 
 		let inputForm = '//*[@id="caEditTable"]/tbody/tr/td/table/tbody/tr[2]/td[7]/input'
 		await frame1.waitForSelector(inputForm)
-		await frame1.type(inputForm, dataGeneration.randomNumber.toString())
+		await frame1.type(inputForm, randNum.toString())
 
+		// let insertButton = '//*[@id="rowsEditor"]/tbody/tr/td[2]/input[2]'
+		// await frame1.waitForSelector(insertButton)
+		// await frame1.click(insertButton)
+		await browser.takeScreenshot()
+
+
+	})
+
+	step('Step 11 - Insert Row', async browser => {
+		const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
 		let insertButton = '//*[@id="rowsEditor"]/tbody/tr/td[2]/input[2]'
 		await frame1.waitForSelector(insertButton)
 		await frame1.click(insertButton)
-
-		await browser.takeScreenshot()
 	})
 
 	step('Step 11 - Submit for Approval', async browser => {
 	
 	const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewButFrame'))
-	let submitButton = '#titidMenu320444'
+	let submitButton = '#idMenu286897'
 	await frame1.waitForSelector(submitButton)
 	await frame1.click(submitButton)
-	await browser.wait('8000ms') //Wait for 8 seconds for the result to appear
+	await browser.wait('15000ms') //Wait for 10 seconds for the result to appear
 
 	await browser.takeScreenshot()
 	
