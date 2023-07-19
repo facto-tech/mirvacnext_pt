@@ -1,6 +1,6 @@
-import { step, TestSettings, By, beforeAll, afterAll } from '@flood/element';
+import { step, TestSettings, By, beforeAll, afterAll, Until, Key } from '@flood/element';
 import assert from "assert";
-import constants from '../data/constants';
+import Constants from '../data/constants';
 
 
 export const settings: TestSettings = {
@@ -16,6 +16,14 @@ export const settings: TestSettings = {
 	loopCount: 1, 
 }
 
+function numberRange(min, max){
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random()*(max-min + 1)) + min;
+}
+
+let randomNumber = numberRange(1000,250000);
+
 export default () => {
 	beforeAll(async browser => {
 		await browser.wait('1500ms')
@@ -26,7 +34,7 @@ export default () => {
 	})
 
 	step('Step 1 - Load URL', async browser => {
-		await browser.visit(constants.URL)
+		await browser.visit(Constants.UATURL)
 		await browser.takeScreenshot()
 	})
 
@@ -37,75 +45,122 @@ export default () => {
 
 	step('Step 3 - Login', async browser => {
 		
-		const login = await browser.findElement(By.css('#nme'))
-		await login.type(constants.ITWOCXUSERNAME)
+		const username = By.css('#nme')
+        await browser.wait(Until.elementIsVisible(username))
+        
+        const password = By.css('#pwd')
+        await browser.wait(Until.elementIsVisible(password))
+        
+        await browser.type(username, Constants.UATUSERNAME)
+        await browser.type(password, Constants.UATPASSWORD)
 
-		const password = await browser.findElement(By.css('#pwd'))
-		await password.type(constants.ITWOCXPASSWORD)
+        await browser.takeScreenshot()
 
-		await browser.takeScreenshot()
-
-		const loginButton = await browser.findElement(By.css('#commit > input'))
-		await login.click()
-
-		const listTarget = await browser.switchTo()
-		listTarget.frame("listFrame")
+        const loginButton = await browser.findElement(By.css('#commit > input'))
+        await loginButton.click()
 	})
 
-	step('Step 4 - Open BTCR > New ', async browser => {
+	step('Step 4 - Open BTRC > New ', async browser => {
 
-			await browser.visit(constants.URL4)
+			await browser.visit(Constants.UATBUDGETTRAN)
 			await browser.takeScreenshot()	
 
 	})
 
 	step('Step 5 - Enter Title budget transfer description', async browser => {
 
-		const title = await browser.findElement(By.css('#tt'))
-		await title.type('TESTTITLE')
+		const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
+		let title = '#tt'
+
+		await frame1.waitForSelector(title)
+		await frame1.type(title, 'Flood Test -' + randomNumber)
+
 		await browser.takeScreenshot()	
 	})
 
-	step('Step 6 - Enter budget fields - budget  ', async browser => {
+	step('Step 6 - Enter budget fields - Zone  ', async browser => {
 	
-	//budget
+	//ZONE
 
-	const triggerElement = By.css('#Budget')
-	await browser.click(triggerElement)
-	await browser.click(By.visibleText('BGTC#0001 - Test 0001'))
-	await browser.takeScreenshot()	
+	const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewNewFrame'))
+	let arrowButton = '#USR_ZONE'
+	await frame1.waitForSelector(arrowButton)
+	await frame1.click(arrowButton)
+	await browser.sendKeys(Key.DOWN)
+	await browser.sendKeys(Key.DOWN)
+	await browser.sendKeys(Key.ENTER)
 
     })
 
-	step('Step 7 - Enter budget fields - from line item  ', async browser => {
+	step('Step 7 - Enter budget fields - budgets  ', async browser => {
 	
-    //line item
-    
-    const triggerElement = By.css('#FromLineItems')
-    await browser.click(triggerElement)
-    await browser.click(By.visibleText('001:WAGES - SALARY'))
+    //budgets
+
+    const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewNewFrame'))
+	let arrowButton = '#Budget'
+	await frame1.waitForSelector(arrowButton)
+	await frame1.click(arrowButton)
+	await browser.sendKeys(Key.DOWN)
+	await browser.sendKeys(Key.DOWN)
+	await browser.sendKeys(Key.ENTER)
+
+    //const triggerElement = By.css('#FromLineItems')
+    //await browser.click(triggerElement)
+    //await browser.click(By.visibleText('001:WAGES - SALARY'))
     await browser.takeScreenshot()	
     
     })
 
-    step('Step 8 - Enter budget fields - to line item  ', async browser => {
+    step('Step 8 - Enter budget fields - from line item  ', async browser => {
 	
-    //to line item
+    //from line item
         
-    const triggerElement = By.css('#ToLineItems')
-    await browser.click(triggerElement)
-    await browser.click(By.visibleText('001:WAGES - SALARY'))
+	const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewNewFrame'))
+	let arrowButton = '#FromLineItems'
+	await frame1.waitForSelector(arrowButton)
+	await frame1.click(arrowButton)
+	await browser.sendKeys(Key.DOWN)
+	await browser.sendKeys(Key.DOWN)
+	await browser.sendKeys(Key.ENTER)
+
+    //const triggerElement = By.css('#ToLineItems')
+    //await browser.click(triggerElement)
+    //await browser.click(By.visibleText('001:WAGES - SALARY'))
     await browser.takeScreenshot()	
         
     })
 
-    step('Step 9 - Enter budget fields - transfer amount  ', async browser => {
+	step('Step 9 - Enter budget fields - to line item  ', async browser => {
+	
+		//to line item
+			
+		const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewNewFrame'))
+		let arrowButton = '#ToLineItems'
+		await frame1.waitForSelector(arrowButton)
+		await frame1.click(arrowButton)
+		await browser.sendKeys(Key.DOWN)
+		await browser.sendKeys(Key.DOWN)
+		await browser.sendKeys(Key.ENTER)
+	
+		//const triggerElement = By.css('#ToLineItems')
+		//await browser.click(triggerElement)
+		//await browser.click(By.visibleText('001:WAGES - SALARY'))
+		await browser.takeScreenshot()	
+			
+		})
+
+
+    step('Step 10 - Enter budget fields - transfer amount  ', async browser => {
 	
     //transfer amount
+		const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewNewFrame'))
+		let transferAmount = '#ValueTransfered'
+		await frame1.type(transferAmount, 'Flood Test -' + randomNumber)
 
-    const triggerElement = By.css('#ValueTransfered')
-    await browser.click(triggerElement)
-    await browser.type(('1000'))
+
+    //const triggerElement = By.css('#ValueTransfered')
+    //await browser.click(triggerElement)
+    //await browser.type(('1000'))
     await browser.takeScreenshot()	
             
     })
@@ -113,7 +168,14 @@ export default () => {
 
 step('Step 10 - Submit to Mirvac for approval', async browser => {
 
-	await browser.click(By.css('#idMenu271984'))
+	const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewButFrame'))
+	let submitButton = '#titidMenu471575'
+	await frame1.waitForSelector(submitButton)
+	await frame1.click(submitButton)
+	await browser.wait('8000ms') 
+
+
+	//await browser.click(By.css('#idMenu271984'))
 	await browser.takeScreenshot()	
 	
 })

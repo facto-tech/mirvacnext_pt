@@ -71,7 +71,7 @@ export default () => {
 
 	})
 
-	step('Step 5 - Enter Title budget transfer description', async browser => {
+	step('Step 5 - Enter Title budget description', async browser => {
 
 		const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
 		let title = '#tt'
@@ -123,7 +123,7 @@ export default () => {
 				
 		})
 
-	step('Step 9 - Enter fields - budget  ', async browser => {
+	step('Step 8 - Enter fields - budget  ', async browser => {
 
 	//budget
 	const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewNewFrame'))
@@ -140,13 +140,13 @@ export default () => {
 })
 	
 
-step('Step 10 - Submit to Mirvac for approval', async browser => {
+step('Step 9 - Submit to Mirvac for approval', async browser => {
 
 	const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewButFrame'))
-	let submitButton = '#titidMenu320443'
+	let submitButton = '//*[@id="titidMenu286698"]'
 	await frame1.waitForSelector(submitButton)
 	await frame1.click(submitButton)
-	await browser.wait('8000ms') 
+	await browser.wait('20000ms') 
 
 	await browser.takeScreenshot()
 	
