@@ -12,7 +12,7 @@ function numberRange(min, max){
 export const settings: TestSettings = {
 	userAgent: 'flood-facto-test',
 	waitUntil: 'visible',
-	description: 'iTwoCX Contract ',
+	description: 'iTwoCX Contract New',
 	screenshotOnFailure: true,
 	disableCache: true,
 	clearCache: true,
@@ -20,7 +20,8 @@ export const settings: TestSettings = {
 	actionDelay: 1.5,
 	stepDelay: 2.5,
 	browser: 'chromium', 
-	loopCount: 1,
+	loopCount: 150,
+	waitTimeout: '60s',
 }
 
 export default () => {
@@ -70,12 +71,12 @@ export default () => {
 
 
 	step('Step 5 - Enter title', async browser => {
-		const randNum = numberRange(100, 10000) 
+		//const randNum = numberRange(100, 10000) 
 		const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
 		let title = '#tt'
 
 		await frame1.waitForSelector(title)
-		await frame1.type(title, 'Flood Test - ' + randNum)
+		await frame1.type(title, 'Flood Test - ' + numberRange(100,20000).toString())
 
 		await browser.takeScreenshot()
 	})
@@ -193,7 +194,7 @@ export default () => {
 
 		let inputForm = '//*[@id="caEditTable"]/tbody/tr/td/table/tbody/tr[2]/td[7]/input'
 		await frame1.waitForSelector(inputForm)
-		await frame1.type(inputForm, randNum.toString())
+		await frame1.type(inputForm, numberRange(1000,400000).toString())
 
 		// let insertButton = '//*[@id="rowsEditor"]/tbody/tr/td[2]/input[2]'
 		// await frame1.waitForSelector(insertButton)
@@ -210,13 +211,13 @@ export default () => {
 		await frame1.click(insertButton)
 	})
 
-	step('Step 11 - Submit for Approval', async browser => {
+	step('Step 12 - Submit for Approval', async browser => {
 	
 	const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewButFrame'))
 	let submitButton = '#idMenu286897'
 	await frame1.waitForSelector(submitButton)
 	await frame1.click(submitButton)
-	await browser.wait('15000ms') //Wait for 10 seconds for the result to appear
+	await browser.wait('45000ms') //Wait for 15 seconds for the result to appear
 
 	await browser.takeScreenshot()
 	

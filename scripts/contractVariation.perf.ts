@@ -23,6 +23,7 @@ function numberRange(min, max){
 		stepDelay: 2.5,
 		browser: 'chromium', 
 		loopCount: 1,
+		waitTimeout: '60s',
 	}
 	
 	export default () => {
@@ -87,7 +88,7 @@ function numberRange(min, max){
 		// 	await acforms.click()
 	
 		// 	await browser.takeScreenshot()
-		// })
+		})
 
 		/*
 		
@@ -105,7 +106,7 @@ function numberRange(min, max){
 			const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
 			let title = '#tt'
 			await frame1.waitForSelector(title)
-			await frame1.type(title, 'Variation - ' + randNum + ' ')
+			await frame1.type(title, 'Variation - ' + numberRange(100,10000).toString())
 
 			await browser.takeScreenshot()
 			
@@ -173,7 +174,7 @@ function numberRange(min, max){
 			await browser.takeScreenshot()
 		})
 
-		step('Step 11 - Set Rate', async browser => {
+		step('Step 10 - Set Rate', async browser => {
 			const randRate = numberRange(1, 100) 
 			const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
 			
@@ -191,7 +192,7 @@ function numberRange(min, max){
 
 			let inputForm = '//*[@id="caEditTable"]/tbody/tr/td/table/tbody/tr[2]/td[6]/input'
 			await frame1.waitForSelector(inputForm)
-			await frame1.type(inputForm, randRate.toString())
+			await frame1.type(inputForm, numberRange(1,100).toString())
 			await browser.sendKeys(Key.ENTER)
 
 			// let insertButton = '//*[@id="rowsEditor"]/tbody/tr/td[2]/input[2]'
@@ -201,13 +202,13 @@ function numberRange(min, max){
 			await browser.takeScreenshot()
 		})
 
-		step('Step 12 - Submit for Approval', async browser => {
+		step('Step 11 - Submit for Approval', async browser => {
 			await browser.page.waitForSelector('#DocNewButFrameDiv > iframe')
 			const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewButFrame'))
 			let submitButton = '#idMenu287244 > div'
 			await frame1.waitForSelector(submitButton)
 			await frame1.click(submitButton)
-			await browser.wait('10000ms') //Wait for 8 seconds for the result to appear
+			await browser.wait('15000ms') //Wait for 8 seconds for the result to appear
 
 		
 			await browser.takeScreenshot()

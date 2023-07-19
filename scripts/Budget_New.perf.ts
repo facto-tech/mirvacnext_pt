@@ -15,6 +15,7 @@ export const settings: TestSettings = {
 	stepDelay: 2.5,
 	loopCount: 1, 
 	browser: 'chromium',
+	waitTimeout: '60s',
 }
 
 function numberRange(min, max){
@@ -130,7 +131,7 @@ export default () => {
 	let openContract = '//*[@id="tr.001"]/td[8]'
 	await frame1.click(openContract)
 	let inputBudget = '//*[@id="Budget"]'
-	await frame1.type(inputBudget, 'Flood Test -' + randomNumber)
+	await frame1.type(inputBudget, numberRange(100,25000).toString())
 
 
 	//const title = await browser.findElement(By.css('#Budget'))
@@ -143,10 +144,10 @@ export default () => {
 step('Step 9 - Submit to Mirvac for approval', async browser => {
 
 	const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewButFrame'))
-	let submitButton = '//*[@id="titidMenu286698"]'
+	let submitButton = '#titidMenu471578'
 	await frame1.waitForSelector(submitButton)
 	await frame1.click(submitButton)
-	await browser.wait('20000ms') 
+	await browser.wait('45000ms') 
 
 	await browser.takeScreenshot()
 	

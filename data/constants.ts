@@ -15,7 +15,7 @@ class Constants {
     UATSUBCONTRACTURL = 'https://mirvac-uat.itwocx.com/cxR/cx.aspx?page=docs/DocNew0&j=MGR-UAT-20131&dsid=69903&m=&mdu=&bid=&d=&i=&f=&filelist=&linkdocid=&tnd=&transID=&reportID=&due=&z=45126.4018181829';
     UATBUDGETVAR = 'https://mirvac-uat.itwocx.com/cxR/cx.aspx?page=docs/DocNew0&j=MGR-UAT-20131&dsid=69891&m=&mdu=&bid=&d=&i=&f=&filelist=&linkdocid=&tnd=&transID=&reportID=&due=&z=45126.4018181829';
     UATNEWBUDGET = 'https://mirvac-uat.itwocx.com/cxR/cx.aspx?page=docs/DocNew0&j=MGR-UAT-20131&dsid=69875&m=&mdu=&bid=&d=&i=&f=&filelist=&linkdocid=&tnd=&transID=&reportID=&due=&z=45126.4018181829';
-
+    UATBUDGETTRAN = 'https://mirvac-uat.itwocx.com/cxR/cx.aspx?page=docs/DocNew0&j=MGR-UAT-20131&dsid=69886&m=&mdu=&bid=&d=&i=&f=&filelist=&linkdocid=&tnd=&transID=&reportID=&due=&z=45126.9382889005';
     FORMURL = 'https://mirvac.itwocx.com/cxR/cx.aspx?page=Docs/docnew2tree&j=MIRVAC_AC_TMP_03&dsid=67349&mdu=CTR&t=67349&m=&i=&transID=&reportId=&due=';
     FORMTITLE = 'DN BP-T5261'
 

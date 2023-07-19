@@ -13,7 +13,9 @@ export const settings: TestSettings = {
 	clearCookies: true,
 	actionDelay: 1.5,
 	stepDelay: 2.5,
-	loopCount: 1, 
+	loopCount: 100, 
+	browser: 'chromium',
+	waitTimeout: '60s',
 }
 
 function numberRange(min, max){
@@ -75,7 +77,7 @@ export default () => {
 		let title = '#tt'
 	
 		await frame1.waitForSelector(title)
-		await frame1.type(title, 'Flood Test -' + randomNumber)
+		await frame1.type(title, 'Flood Test -' + numberRange(1000,100000).toString())
 	
 		await browser.takeScreenshot()
 
@@ -120,17 +122,17 @@ export default () => {
 
 	let budgetVariation = '#USR_BVRREF'
 	await frame1.waitForSelector(budgetVariation)
-	await frame1.type(budgetVariation, 'Flood Test -' + randomNumber)
+	await frame1.type(budgetVariation, 'Flood Test -' + numberRange(1000,100000).toString())
 
 	//construction reserve
 	let constReserve = '#USR_CONTRDRES'
 	await frame1.waitForSelector(constReserve)
-	await frame1.type(constReserve, 'Flood Test -' + randomNumber)
+	await frame1.type(constReserve, 'Flood Test -' + numberRange(1000,100000).toString())
 
 	//budget description
 	let budgetDescription = '#USR_BRFVDES_ifr'
 	await frame1.waitForSelector(budgetDescription)
-	await frame1.type(budgetDescription, 'Flood Test -' + randomNumber)
+	await frame1.type(budgetDescription, 'Flood Test -' + numberRange(1000,100000).toString())
 
 	})
 
@@ -140,7 +142,7 @@ export default () => {
 	const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewNewFrame'))
 	let estimatedBudget = '#USR_EBVR'
 	await frame1.waitForSelector(estimatedBudget)
-	await frame1.type(estimatedBudget, 'Flood Test -' + randomNumber)
+	await frame1.type(estimatedBudget, 'Flood Test -' + numberRange(1000,100000).toString())
 
 
 	//const triggerElement = By.css('#tinymce')
@@ -172,7 +174,7 @@ export default () => {
 		const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewNewFrame'))
 		let descriptionBudget = '#caEditTable > tbody > tr:nth-child(2) > td:nth-child(2) > textarea'
 		await frame1.waitForSelector(descriptionBudget)
-		await frame1.type(descriptionBudget, 'Flood Test -' + randomNumber)
+		await frame1.type(descriptionBudget, 'Flood Test -' + numberRange(1000,100000).toString())
 
 
 	//const title = await browser.findElement(By.css('#tinymce'))
@@ -187,7 +189,7 @@ step('Step 10 - Add a budget estimation code ', async browser => {
 	const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewNewFrame'))
 	let codeBudget = '#caEditTable > tbody > tr:nth-child(2) > td.buttonsTd > input:nth-child(1)'
 	await frame1.waitForSelector(codeBudget)
-	await frame1.type(codeBudget, 'Flood Test -' + randomNumber)
+	await frame1.type(codeBudget, 'Flood Test -' + numberRange(1000,100000).toString())
 
 
 //const title = await browser.findElement(By.css('#tinymce'))
@@ -203,7 +205,7 @@ step('Step 11 - Add a budget estimation rate ', async browser => {
 	const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewNewFrame'))
 	let rateBudget = '#caEditTable > tbody > tr:nth-child(2) > td.buttonsTd > input:nth-child(3)'
 	await frame1.waitForSelector(rateBudget)
-	await frame1.type(rateBudget, 'Flood Test -' + randomNumber)
+	await frame1.type(rateBudget, 'Flood Test -' + numberRange(1000,100000).toString())
 
 
 //const title = await browser.findElement(By.css('#tinymce'))
@@ -217,10 +219,10 @@ await browser.takeScreenshot()
 step('Step 12 - Submit to Mirvac for approval', async browser => {
 
 	const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewButFrame'))
-	let submitButton = '#titidMenu320446'
+	let submitButton = '#titidMenu471577'
 	await frame1.waitForSelector(submitButton)
 	await frame1.click(submitButton)
-	await browser.wait('8000ms') 
+	await browser.wait('30000ms') 
 
 	await browser.takeScreenshot()
 

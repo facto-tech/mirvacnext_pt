@@ -1,6 +1,6 @@
 import { step, TestSettings, By, beforeAll, afterAll, Until, Key } from '@flood/element';
 import assert from "assert";
-import Constants from '../data/constants';
+import Constants from '../../data/Constants';
 
 
 export const settings: TestSettings = {
@@ -13,8 +13,9 @@ export const settings: TestSettings = {
 	clearCookies: true,
 	actionDelay: 1.5,
 	stepDelay: 2.5,
-	loopCount: 1, 
+	loopCount: 150, 
 	waitTimeout: '60s',
+	browser: 'chromium',
 }
 
 function numberRange(min, max){
@@ -74,7 +75,7 @@ export default () => {
 		let title = '#tt'
 
 		await frame1.waitForSelector(title)
-		await frame1.type(title, 'Flood Test -' + randomNumber)
+		await frame1.type(title, 'Flood Test -' + numberRange(1000,100000).toString())
 
 		await browser.takeScreenshot()	
 	})
@@ -156,7 +157,7 @@ export default () => {
     //transfer amount
 		const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewNewFrame'))
 		let transferAmount = '#ValueTransfered'
-		await frame1.type(transferAmount, 'Flood Test -' + randomNumber)
+		await frame1.type(transferAmount, numberRange(1000,35000).toString())
 
 
     //const triggerElement = By.css('#ValueTransfered')
@@ -173,7 +174,7 @@ step('Step 10 - Submit to Mirvac for approval', async browser => {
 	let submitButton = '#titidMenu471575'
 	await frame1.waitForSelector(submitButton)
 	await frame1.click(submitButton)
-	await browser.wait('8000ms') 
+	await browser.wait('45000ms') 
 
 
 	//await browser.click(By.css('#idMenu271984'))

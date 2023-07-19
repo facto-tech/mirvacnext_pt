@@ -11,7 +11,7 @@ function numberRange(min, max){
 export const settings: TestSettings = {
 	userAgent: 'flood-facto-test',
 	waitUntil: 'visible',
-	description: 'iTwoCX New Contract',
+	description: 'iTwoCX Contract New',
 	screenshotOnFailure: true,
 	disableCache: true,
 	clearCache: true,
@@ -19,13 +19,12 @@ export const settings: TestSettings = {
 	actionDelay: 1.5,
 	stepDelay: 2.5,
 	browser: 'chromium', 
-	loopCount: 100,
+	loopCount: 1,
+	waitTimeout: '60s',
 }
 
-let randomNumber = numberRange(1000,100000);
-
 export default () => {
-
+	
 	beforeAll(async browser => {
 		await browser.wait('1500ms')
 	})
@@ -35,7 +34,7 @@ export default () => {
 	})
 
 	step('Step 1 - Load URL', async browser => {
-		await browser.visit('https://mirvac.itwocx.com/MGR-ENT-MST-001-UAT')
+		await browser.visit('https://mirvac-uat.itwocx.com/MGR-UAT-20131')
 		await browser.takeScreenshot()
 	})
 
@@ -65,18 +64,18 @@ export default () => {
 
     step('Step 4 - Redirect to the form link', async browser => {
 
-		await browser.visit('https://mirvac.itwocx.com/cxR/cx.aspx?page=Docs/docnew2tree&j=MGR-ENT-MST-001-UAT&dsid=67228&mdu=CTR&t=67228&m=&i=&transID=&reportId=&due=')
+		await browser.visit('https://mirvac-uat.itwocx.com/cxR/cx.aspx?page=Docs/docnew2tree&j=MGR-UAT-20131&dsid=69903&mdu=COR&t=69903&action=searchGrid_New')
 		await browser.takeScreenshot()	
 	})
 
 
 	step('Step 5 - Enter title', async browser => {
-
+		//const randNum = numberRange(100, 10000) 
 		const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
 		let title = '#tt'
 
 		await frame1.waitForSelector(title)
-		await frame1.type(title, 'Flood Test - '+ randomNumber)
+		await frame1.type(title, 'Flood Test - ' + numberRange(100,20000).toString())
 
 		await browser.takeScreenshot()
 	})
@@ -90,7 +89,7 @@ export default () => {
 		await frame1.waitForSelector(dueDate)
 		await frame1.click(dueDate)
 
-		let chooseDate = '#cal_content > table > tbody > tr:nth-child(6) > td:nth-child(2) > a'
+		let chooseDate = '#cal_content > table > tbody > tr:nth-child(6) > td:nth-child(4) > a'
 		await frame1.waitForSelector(chooseDate)
 		await frame1.click(chooseDate) 
 
@@ -127,9 +126,13 @@ export default () => {
 		await frame1.waitForSelector(commitmentType)
 		await frame1.click(commitmentType)
 		await browser.sendKeys(Key.DOWN)
-		await browser.sendKeys(Key.DOWN)
 		await browser.sendKeys(Key.ENTER)
 
+		let paymentTerms = '#USR_PAYTN'
+		await frame1.waitForSelector(paymentTerms)
+		await frame1.click(paymentTerms)
+		await browser.sendKeys(Key.DOWN)
+		await browser.sendKeys(Key.ENTER)
 		await browser.takeScreenshot()
 
 	})
@@ -161,18 +164,18 @@ export default () => {
 	step('Step 9 - Link Budget', async browser => {
 		
 		const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewNewFrame'))
-		let arrowButton = '#divUsrForm > div.selectLinkedBudget'
-		await frame1.waitForSelector(arrowButton)
-		await frame1.click(arrowButton)
-		await browser.sendKeys(Key.DOWN)
-		await browser.sendKeys(Key.ENTER)
+		// let arrowButton = '#divUsrForm > div.selectLinkedBudget'
+		// await frame1.waitForSelector(arrowButton)
+		// await frame1.click(arrowButton)
+		// //await browser.sendKeys(Key.DOWN)
+		// await browser.sendKeys(Key.ENTER)
 
-		let insertButton = '#rowsEditor > tbody > tr > td.buttonsTd > input:nth-child(2)'
-		await frame1.waitForSelector(insertButton)
-		await frame1.click(insertButton)
+		// let insertButton = '#rowsEditor > tbody > tr > td.buttonsTd > input:nth-child(2)'
+		// await frame1.waitForSelector(insertButton)
+		// await frame1.click(insertButton)
 
-		let arrowList = '#tr\\.001 > td.linkedBudgetLine.skipRowClick > span > span > span.k-select > span'
 		//let arrowList = '//*[@id="tr.001"]/td[10]/span/span/span[2]'
+		let arrowList = '#divUsrForm > div.selectLinkedBudget > span > span > span.k-select > span'
 		await frame1.waitForSelector(arrowList)
 		await frame1.click(arrowList)
 		await browser.sendKeys(Key.DOWN)
@@ -182,7 +185,7 @@ export default () => {
 	})
 
 	step('Step 10 - Set Rate', async browser => {
-			
+		const randNum = numberRange(1000, 1000000)	
 		const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
 		
 		let rate = '//*[@id="tr.001"]/td[15]'
@@ -191,22 +194,36 @@ export default () => {
 
 		let inputForm = '//*[@id="caEditTable"]/tbody/tr/td/table/tbody/tr[2]/td[7]/input'
 		await frame1.waitForSelector(inputForm)
-		//await frame1.type(inputForm, dataGeneration.randomNumber.toString())
-		await frame1.type(inputForm, randomNumber.toString())
+		await frame1.type(inputForm, numberRange(1000,400000).toString())
+
+		let budgetLine = '#tr\\.001 > td.linkedBudgetLine.skipRowClick > span > span > span.k-select > span'
+		await frame1.waitForSelector(budgetLine)
+		await frame1.click(budgetLine)
+		await browser.sendKeys(Key.DOWN)
+		await browser.sendKeys(Key.ENTER)
+		// let insertButton = '//*[@id="rowsEditor"]/tbody/tr/td[2]/input[2]'
+		// await frame1.waitForSelector(insertButton)
+		// await frame1.click(insertButton)
+		await browser.takeScreenshot()
+
+
+	})
+
+	step('Step 11 - Insert Row', async browser => {
+		const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
 		let insertButton = '//*[@id="rowsEditor"]/tbody/tr/td[2]/input[2]'
 		await frame1.waitForSelector(insertButton)
 		await frame1.click(insertButton)
-
-		await browser.takeScreenshot()
 	})
 
-	step('Step 11 - Submit for Approval', async browser => {
+	step('Step 12 - Submit for Approval', async browser => {
 	
 	const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewButFrame'))
-	let submitButton = '#titidMenu320444'
+	//let submitButton = '#titidMenu471580' NOTE THIS AUTO APPROVE ISNT WORKING BELOW IS USING SUBMIT FOR APPROVAL
+	let submitButton = '#titidMenu286897'
 	await frame1.waitForSelector(submitButton)
 	await frame1.click(submitButton)
-	await browser.wait('15000ms') //Wait for 8 seconds for the result to appear
+	await browser.wait('45000ms') //Wait for 15 seconds for the result to appear
 
 	await browser.takeScreenshot()
 	

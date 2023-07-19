@@ -1,5 +1,8 @@
 import { step, TestSettings, By, beforeAll, afterAll, Until, Key } from '@flood/element';
 import assert from "assert";
+import Constants from '../../data/Constants';
+import dataGeneration from '../../data/dataGeneration';
+
 
 function numberRange(min, max){
     min = Math.ceil(min);
@@ -19,7 +22,8 @@ function numberRange(min, max){
 		actionDelay: 1.5,
 		stepDelay: 2.5,
 		browser: 'chromium', 
-		loopCount: Infinity,
+		loopCount: 150,
+		waitTimeout: '60s',
 	}
 	
 	export default () => {
@@ -33,7 +37,7 @@ function numberRange(min, max){
 		})
 	
 		step('Step 1 - Load URL', async browser => {
-			await browser.visit('https://mirvac.itwocx.com/MGR-ENT-MST-001-UAT')
+			await browser.visit('https://mirvac-uat.itwocx.com/MGR-UAT-20131')
 			await browser.takeScreenshot()
 		})
 	
@@ -51,8 +55,8 @@ function numberRange(min, max){
 			const password = By.css('#pwd')
 			await browser.wait(Until.elementIsVisible(password))
 			
-			await browser.type(username, 'mrc_ca_1@mailinator.com')
-			await browser.type(password, 'Project123!')
+			await browser.type(username, Constants.ITWOCXUSERNAME)
+			await browser.type(password, Constants.ITWOCXPASSWORD)
 	
 			await browser.takeScreenshot()
 	
@@ -61,7 +65,7 @@ function numberRange(min, max){
 	
 		})
 
-		step('Step 4 - Show subcontract list', async browser => {
+		step('Step 4 - Select Contract Admin', async browser => {
 		
 			const mainTarget = await browser.switchTo()
 			mainTarget.frame("outframe")
@@ -74,16 +78,16 @@ function numberRange(min, max){
 	
 			await browser.takeScreenshot()
 				
-			//Select A&CFORMS
-			const listTarget = await browser.switchTo()
-			listTarget.frame("DocRegRegFrame")
+		// 	//Select A&CFORMS
+		// 	const listTarget = await browser.switchTo()
+		// 	listTarget.frame("DocRegRegFrame")
 	
 			
-			//const acforms = await browser.findElement(By.css('#registerItems > tbody > tr:nth-child(3) > td:nth-child(2) > a'))
-			const acforms = await browser.findElement(By.css('#registerItems > tbody > tr:nth-child(13) > td:nth-child(2) > a'))
-			await acforms.click()
+		// 	//const acforms = await browser.findElement(By.css('#registerItems > tbody > tr:nth-child(3) > td:nth-child(2) > a'))
+		// 	const acforms = await browser.findElement(By.css('#registerItems > tbody > tr:nth-child(13) > td:nth-child(2) > a'))
+		// 	await acforms.click()
 	
-			await browser.takeScreenshot()
+		// 	await browser.takeScreenshot()
 		})
 
 		/*
@@ -91,9 +95,9 @@ function numberRange(min, max){
 		We will select the first subcontract and create a subcontract variation fron it. 
 		*/
 
-		step('Step 5 - Create subcontractor variation for: CTRC: AP-10163#0006 ', async browser => {
+		step('Step 5 - Create subcontractor variation for: 	CTRC: #0023', async browser => {
 			
-			await browser.visit('https://mirvac.itwocx.com/cxR/cx.aspx?page=docs/DocNew0&j=MGR-ENT-MST-001-UAT&dsid=67282&i=2013023&m=f&d=&mdu=CTR&f=CTRC&questionLogId=&tenderPackageId=')
+			await browser.visit('https://mirvac-uat.itwocx.com/cxR/cx.aspx?page=docs/DocNew0&j=MGR-UAT-20131&dsid=69958&i=1694926&m=f&d=&mdu=CTR&f=CTRC&questionLogId=&tenderPackageId=')
 			await browser.takeScreenshot()	
 		})
 
@@ -131,17 +135,24 @@ function numberRange(min, max){
 			await frame1.waitForSelector(variationReason)
 			await frame1.click(variationReason)
 			await browser.sendKeys(Key.DOWN)
+			await browser.sendKeys(Key.DOWN)
 			await browser.sendKeys(Key.ENTER)
 
-			let variationNumber = '//*[@id="USR_YARDCHG"]'
-			await frame1.waitForSelector(variationNumber)
-			await frame1.type(variationNumber, numberRange(1000, 10000).toString())
+			let warrantiesImpacted = '//*[@id="TreeSel_USR_WARIMP"]'
+			await frame1.waitForSelector(warrantiesImpacted) 
+			await frame1.click(warrantiesImpacted)
+			await browser.sendKeys(Key.DOWN)
+			await browser.sendKeys(Key.ENTER)
 
-			await browser.takeScreenshot()
+			let substantialCompletion = '//*[@id="TreeSel_USR_SUBCOMIMP"]'
+			await frame1.waitForSelector(substantialCompletion)
+			await frame1.click(substantialCompletion)
+			await browser.sendKeys(Key.DOWN)
+			await browser.sendKeys(Key.ENTER)
 
-			let variationCategory = '//*[@id="USR_VARCAT"]'
-			await frame1.waitForSelector(variationCategory)
-			await frame1.click(variationCategory)
+			let scheduleRate = '//*[@id="TreeSel_USR_SORAPP"]'
+			await frame1.waitForSelector(scheduleRate)
+			await frame1.click(scheduleRate)
 			await browser.sendKeys(Key.DOWN)
 			await browser.sendKeys(Key.ENTER)
 
@@ -163,47 +174,45 @@ function numberRange(min, max){
 			await browser.takeScreenshot()
 		})
 
-		step('Step 11 - Set Rate', async browser => {
-			const randRate = numberRange(1, 10000) 
+		step('Step 10 - Set Rate', async browser => {
+			const randRate = numberRange(1, 100) 
 			const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
 			
+
+
+			let arrowList = '//*[@id="tr.001"]/td[10]/span/span/span[2]'
+			await frame1.waitForSelector(arrowList)
+			await frame1.click(arrowList)
+			await browser.sendKeys(Key.DOWN)
+			await browser.sendKeys(Key.ENTER)
+
 			let rate = '//*[@id="tr.001"]/td[14]'
 			await frame1.waitForSelector(rate)
 			await frame1.click(rate)
 
 			let inputForm = '//*[@id="caEditTable"]/tbody/tr/td/table/tbody/tr[2]/td[6]/input'
 			await frame1.waitForSelector(inputForm)
-			await frame1.type(inputForm, numberRange(10,10000).toString())
-
-			let insertButton = '//*[@id="rowsEditor"]/tbody/tr/td[2]/input[2]'
-			await frame1.waitForSelector(insertButton)
-			await frame1.click(insertButton)
-
-			
-			let arrowList = '//*[@id="tr.001"]/td[10]/span/span/span[2]'
-			await frame1.waitForSelector(arrowList)
-			await frame1.click(arrowList)
-			await browser.sendKeys(Key.DOWN)
-			await browser.sendKeys(Key.DOWN)
+			await frame1.type(inputForm, numberRange(1,100).toString())
 			await browser.sendKeys(Key.ENTER)
+
+			// let insertButton = '//*[@id="rowsEditor"]/tbody/tr/td[2]/input[2]'
+			// await frame1.waitForSelector(insertButton)
+			// await frame1.click(insertButton)
 
 			await browser.takeScreenshot()
 		})
 
-		step('Step 12 - Submit for Approval', async browser => {
-			
+		step('Step 11 - Submit for Approval', async browser => {
+			await browser.page.waitForSelector('#DocNewButFrameDiv > iframe')
 			const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewButFrame'))
-			let submitButton = '#titidMenu320448' 
+			let submitButton = '#idMenu287244 > div'
 			await frame1.waitForSelector(submitButton)
 			await frame1.click(submitButton)
-			await browser.wait('15000ms') //Wait for 15 seconds for the result to appear
+			await browser.wait('30000ms') //Wait for 30 seconds for the result to appear
 
-			await frame1.click(submitButton)
 		
 			await browser.takeScreenshot()
 			
 		
 		})
 }
-
-
