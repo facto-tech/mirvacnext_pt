@@ -100,15 +100,6 @@ export default () => {
 	step('Step 7 - Enter the Administration Details', async browser => {
 		
 		const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
-	
-		// await frame1.evaluate(({ selector, value }) => {
-		// 	const selectElement = document.querySelector(selector);
-		// 	const option = Array.from(selectElement.options).find((opt) => opt.value === value);
-		// 	if (option) {
-		// 	  option.selected = true;
-		// 	  selectElement.dispatchEvent(new Event('change', { bubbles: true }));
-		// 	}
-		//   }, { selector: selectSelector, value: optionValue });
 
 		let packageManager = '#USR_PACKM'	
 		await frame1.waitForSelector(packageManager)
@@ -165,15 +156,6 @@ export default () => {
 	step('Step 9 - Link Budget', async browser => {
 		
 		const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewNewFrame'))
-		// let arrowButton = '#divUsrForm > div.selectLinkedBudget'
-		// await frame1.waitForSelector(arrowButton)
-		// await frame1.click(arrowButton)
-		// //await browser.sendKeys(Key.DOWN)
-		// await browser.sendKeys(Key.ENTER)
-
-		// let insertButton = '#rowsEditor > tbody > tr > td.buttonsTd > input:nth-child(2)'
-		// await frame1.waitForSelector(insertButton)
-		// await frame1.click(insertButton)
 
 		let arrowList = '//*[@id="divUsrForm"]/div[1]/span/span'
 		await frame1.waitForSelector(arrowList)
@@ -205,11 +187,6 @@ export default () => {
 		let insertRow = '//*[@id="rowsEditor"]/tbody/tr/td[2]/input[2]'
 		await frame1.waitForSelector(insertRow)
 		await frame1.click(insertRow)
-
-
-		// let insertButton = '//*[@id="rowsEditor"]/tbody/tr/td[2]/input[2]'
-		// await frame1.waitForSelector(insertButton)
-		// await frame1.click(insertButton)
 		await browser.takeScreenshot()
 
 
