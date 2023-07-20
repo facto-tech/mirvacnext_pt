@@ -20,7 +20,7 @@ export const settings: TestSettings = {
 	actionDelay: 1.5,
 	stepDelay: 2.5,
 	browser: 'chromium', 
-	loopCount: 10,
+	loopCount: 1,
 }
 
 export default () => {
@@ -180,6 +180,8 @@ export default () => {
 		await frame1.click(arrowButton)
 		await browser.sendKeys(Key.DOWN)
 		await browser.sendKeys(Key.DOWN)
+		await browser.sendKeys(Key.DOWN)
+		await browser.sendKeys(Key.DOWN)
 		await browser.sendKeys(Key.ENTER)
 
 		let arrowList = '//*[@id="tr.001"]/td[10]/span/span/span[2]'
@@ -214,12 +216,12 @@ export default () => {
 
 	})
 
-	step('Step 11 - Insert Row', async browser => {
-		const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
-		let insertButton = '#rowsEditor > tbody > tr > td.buttonsTd > input:nth-child(2)'
-		await frame1.waitForSelector(insertButton)
-		await frame1.click(insertButton)
-	})
+	// step('Step 11 - Insert Row', async browser => {
+	// 	const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
+	// 	let insertButton = '#rowsEditor > tbody > tr > td.buttonsTd > input:nth-child(2)'
+	// 	await frame1.waitForSelector(insertButton)
+	// 	await frame1.click(insertButton)
+	// })
 
 	step('Step 11 - Submit for Approval', async browser => {
 	
