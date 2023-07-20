@@ -20,7 +20,7 @@ export const settings: TestSettings = {
 	actionDelay: 1.5,
 	stepDelay: 2.5,
 	browser: 'chromium', 
-	loopCount: 150,
+	loopCount: 1,
 	waitTimeout: '60s',
 }
 
@@ -175,7 +175,7 @@ export default () => {
 		// await frame1.waitForSelector(insertButton)
 		// await frame1.click(insertButton)
 
-		let arrowList = '//*[@id="tr.001"]/td[10]/span/span/span[2]'
+		let arrowList = '//*[@id="divUsrForm"]/div[1]/span/span'
 		await frame1.waitForSelector(arrowList)
 		await frame1.click(arrowList)
 		await browser.sendKeys(Key.DOWN)
@@ -184,10 +184,16 @@ export default () => {
 		await browser.takeScreenshot()
 	})
 
-	step('Step 10 - Set Rate', async browser => {
+	step('Step 10 - Set Rate & Budget Line', async browser => {
 		const randNum = numberRange(1000, 1000000)	
 		const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
 		
+		let arrowButton = '//*[@id="tr.001"]/td[10]/span/span/span[2]'
+		await frame1.waitForSelector(arrowButton)
+		await frame1.click(arrowButton)
+		await browser.sendKeys(Key.DOWN)
+		await browser.sendKeys(Key.ENTER)
+
 		let rate = '//*[@id="tr.001"]/td[15]'
 		await frame1.waitForSelector(rate)
 		await frame1.click(rate)
@@ -195,6 +201,11 @@ export default () => {
 		let inputForm = '//*[@id="caEditTable"]/tbody/tr/td/table/tbody/tr[2]/td[7]/input'
 		await frame1.waitForSelector(inputForm)
 		await frame1.type(inputForm, numberRange(1000,400000).toString())
+
+		let insertRow = '//*[@id="rowsEditor"]/tbody/tr/td[2]/input[2]'
+		await frame1.waitForSelector(insertRow)
+		await frame1.click(insertRow)
+
 
 		// let insertButton = '//*[@id="rowsEditor"]/tbody/tr/td[2]/input[2]'
 		// await frame1.waitForSelector(insertButton)
@@ -204,20 +215,13 @@ export default () => {
 
 	})
 
-	step('Step 11 - Insert Row', async browser => {
-		const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
-		let insertButton = '//*[@id="rowsEditor"]/tbody/tr/td[2]/input[2]'
-		await frame1.waitForSelector(insertButton)
-		await frame1.click(insertButton)
-	})
-
 	step('Step 12 - Submit for Approval', async browser => {
 	
 	const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewButFrame'))
-	let submitButton = '#idMenu286897'
+	let submitButton = '//*[@id="idMenu471580"]/div'
 	await frame1.waitForSelector(submitButton)
 	await frame1.click(submitButton)
-	await browser.wait('45000ms') //Wait for 15 seconds for the result to appear
+	await browser.wait('15000ms') //Wait for 15 seconds for the result to appear
 
 	await browser.takeScreenshot()
 	

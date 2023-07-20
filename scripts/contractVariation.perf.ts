@@ -208,7 +208,7 @@ function numberRange(min, max){
 			let submitButton = '#idMenu287244 > div'
 			await frame1.waitForSelector(submitButton)
 			await frame1.click(submitButton)
-			await browser.wait('15000ms') //Wait for 8 seconds for the result to appear
+			await browser.wait('15000ms') //Wait for 15 seconds for the result to appear
 
 		
 			await browser.takeScreenshot()
