@@ -12,7 +12,7 @@ function numberRange(min, max){
 export const settings: TestSettings = {
 	userAgent: 'flood-facto-test',
 	waitUntil: 'visible',
-	description: 'iTwoCX Contract New',
+	description: 'iTwoCX Contract ',
 	screenshotOnFailure: true,
 	disableCache: true,
 	clearCache: true,
@@ -20,8 +20,7 @@ export const settings: TestSettings = {
 	actionDelay: 1.5,
 	stepDelay: 2.5,
 	browser: 'chromium', 
-	loopCount: 1,
-	waitTimeout: '60s',
+	loopCount: 10,
 }
 
 export default () => {
@@ -65,18 +64,18 @@ export default () => {
 
     step('Step 4 - Redirect to the form link', async browser => {
 
-		await browser.visit('https://mirvac-uat.itwocx.com/cxR/cx.aspx?page=Docs/docnew2tree&j=MGR-UAT-20131&dsid=69903&mdu=COR&t=69903&action=searchGrid_New')
+		await browser.visit('https://mirvac-uat.itwocx.com/cxR/cx.aspx?page=Docs/docnew2tree&j=MGR-UAT-20131&dsid=69903&mdu=CTR&t=69903&m=&i=&transID=&reportId=&due=')
 		await browser.takeScreenshot()	
 	})
 
 
 	step('Step 5 - Enter title', async browser => {
-		//const randNum = numberRange(100, 10000) 
+		const randNum = numberRange(100, 10000) 
 		const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
 		let title = '#tt'
 
 		await frame1.waitForSelector(title)
-		await frame1.type(title, 'Flood Test - ' + numberRange(100,20000).toString())
+		await frame1.type(title, 'Flood Test - ' + randNum)
 
 		await browser.takeScreenshot()
 	})
@@ -100,6 +99,15 @@ export default () => {
 	step('Step 7 - Enter the Administration Details', async browser => {
 		
 		const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
+	
+		// await frame1.evaluate(({ selector, value }) => {
+		// 	const selectElement = document.querySelector(selector);
+		// 	const option = Array.from(selectElement.options).find((opt) => opt.value === value);
+		// 	if (option) {
+		// 	  option.selected = true;
+		// 	  selectElement.dispatchEvent(new Event('change', { bubbles: true }));
+		// 	}
+		//   }, { selector: selectSelector, value: optionValue });
 
 		let packageManager = '#USR_PACKM'	
 		await frame1.waitForSelector(packageManager)
@@ -153,11 +161,28 @@ export default () => {
 		await browser.takeScreenshot()
 	})
 
-	step('Step 9 - Link Budget', async browser => {
+	step('Step 9 - Link Budget & Budget Line', async browser => {
 		
-		const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewNewFrame'))
+		// const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewNewFrame'))
 
-		let arrowList = '//*[@id="divUsrForm"]/div[1]/span/span'
+		// let arrowList = '//*[@id="tr.001"]/td[10]/span/span/span[2]'
+		// await frame1.waitForSelector(arrowList)
+		// await frame1.click(arrowList)
+		// await browser.sendKeys(Key.DOWN)
+		// await browser.sendKeys(Key.ENTER)
+
+		// await browser.takeScreenshot()
+
+
+		const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewNewFrame'))
+		let arrowButton = '#divUsrForm > div.selectLinkedBudget'
+		await frame1.waitForSelector(arrowButton)
+		await frame1.click(arrowButton)
+		await browser.sendKeys(Key.DOWN)
+		await browser.sendKeys(Key.DOWN)
+		await browser.sendKeys(Key.ENTER)
+
+		let arrowList = '//*[@id="tr.001"]/td[10]/span/span/span[2]'
 		await frame1.waitForSelector(arrowList)
 		await frame1.click(arrowList)
 		await browser.sendKeys(Key.DOWN)
@@ -166,40 +191,45 @@ export default () => {
 		await browser.takeScreenshot()
 	})
 
-	step('Step 10 - Set Rate & Budget Line', async browser => {
+	step('Step 10 - Set Rate', async browser => {
 		const randNum = numberRange(1000, 1000000)	
 		const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
 		
-		let arrowButton = '//*[@id="tr.001"]/td[10]/span/span/span[2]'
-		await frame1.waitForSelector(arrowButton)
-		await frame1.click(arrowButton)
-		await browser.sendKeys(Key.DOWN)
-		await browser.sendKeys(Key.ENTER)
-
-		let rate = '//*[@id="tr.001"]/td[15]'
-		await frame1.waitForSelector(rate)
-		await frame1.click(rate)
+		let value = '//*[@id="tr.001"]/td[15]'
+		await frame1.waitForSelector(value)
+		await frame1.click(value)
 
 		let inputForm = '//*[@id="caEditTable"]/tbody/tr/td/table/tbody/tr[2]/td[7]/input'
 		await frame1.waitForSelector(inputForm)
-		await frame1.type(inputForm, numberRange(1000,400000).toString())
+		await frame1.type(inputForm, randNum.toString())
 
-		let insertRow = '//*[@id="rowsEditor"]/tbody/tr/td[2]/input[2]'
-		await frame1.waitForSelector(insertRow)
-		await frame1.click(insertRow)
+		// let insertButton = '//*[@id="rowsEditor"]/tbody/tr/td[2]/input[2]'
+		// await frame1.waitForSelector(insertButton)
+		// await frame1.click(insertButton)
+
+
+
 		await browser.takeScreenshot()
 
 
 	})
 
-	step('Step 12 - Submit for Approval', async browser => {
+	step('Step 11 - Insert Row', async browser => {
+		const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
+		let insertButton = '#rowsEditor > tbody > tr > td.buttonsTd > input:nth-child(2)'
+		await frame1.waitForSelector(insertButton)
+		await frame1.click(insertButton)
+	})
+
+	step('Step 11 - Submit for Approval', async browser => {
 	
 	const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewButFrame'))
-	let submitButton = '//*[@id="idMenu471580"]/div'
+	let submitButton = '//*[@id="titidMenu471580"]'
 	await frame1.waitForSelector(submitButton)
 	await frame1.click(submitButton)
-	await browser.wait('15000ms') //Wait for 15 seconds for the result to appear
+	await browser.wait('25000ms') //Wait for 25 seconds for the result to appear
 
+	
 	await browser.takeScreenshot()
 	
 	
