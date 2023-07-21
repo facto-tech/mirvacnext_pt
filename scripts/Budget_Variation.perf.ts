@@ -13,7 +13,7 @@ export const settings: TestSettings = {
 	clearCookies: true,
 	actionDelay: 1.5,
 	stepDelay: 2.5,
-	loopCount: 100, 
+	loopCount: 1, 
 	browser: 'chromium',
 	waitTimeout: '60s',
 }
@@ -134,6 +134,15 @@ export default () => {
 	await frame1.waitForSelector(budgetDescription)
 	await frame1.type(budgetDescription, 'Flood Test -' + numberRange(1000,100000).toString())
 
+	//enter budget description2 details
+	let budgetDescription2 = '#mceu_0-button'
+	//let budgetDescription2txtbox = '#tinymce'
+	await frame1.click(budgetDescription2)
+	await browser.sendKeys(Key.DOWN)
+	//await frame1.click(budgetDescription2txtbox)
+	await frame1.waitForSelector(budgetDescription2)
+	await frame1.type(budgetDescription2, 'Flood Test')
+
 	})
 
 	step('Step 7 - Enter mandatory fields under estimated budget ', async browser => {
@@ -184,23 +193,23 @@ export default () => {
 })
 
 
-step('Step 10 - Add a budget estimation code ', async browser => {
+//step('Step 10 - Add a budget estimation code ', async browser => {
 
-	const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewNewFrame'))
-	let codeBudget = '#caEditTable > tbody > tr:nth-child(2) > td.buttonsTd > input:nth-child(1)'
-	await frame1.waitForSelector(codeBudget)
-	await frame1.type(codeBudget, 'Flood Test -' + numberRange(1000,100000).toString())
+	//const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewNewFrame'))
+	//let codeBudget = '#caEditTable > tbody > tr:nth-child(2) > td.buttonsTd > input:nth-child(1)'
+	//await frame1.waitForSelector(codeBudget)
+	//await frame1.type(codeBudget, 'Flood Test -' + numberRange(1000,100000).toString())
 
 
 //const title = await browser.findElement(By.css('#tinymce'))
 //await title.type('TESTVARIATIONDESCRIPTION')
-await browser.takeScreenshot()	
+//await browser.takeScreenshot()	
 
-})
+//})
 
 
 
-step('Step 11 - Add a budget estimation rate ', async browser => {
+step('Step 10 - Add a budget estimation rate ', async browser => {
 
 	const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewNewFrame'))
 	let rateBudget = '#caEditTable > tbody > tr:nth-child(2) > td.buttonsTd > input:nth-child(3)'
@@ -214,7 +223,7 @@ await browser.takeScreenshot()
 
 })
 
-step('Step 12 - Insert Cost Code ', async browser => {
+step('Step 11 - Insert Cost Code ', async browser => {
 
 	const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewNewFrame'))
 	let costCode = '#caEditTable > tbody > tr:nth-child(2) > td.buttonsTd > input:nth-child(1)'
