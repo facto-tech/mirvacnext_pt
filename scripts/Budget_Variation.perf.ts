@@ -1,6 +1,6 @@
 import { step, TestSettings, By, beforeAll, afterAll, Until, Key } from '@flood/element';
 import assert from "assert";
-import constants from '../data/constants';
+import constants from '../data/Constants';
 
 
 export const settings: TestSettings = {
@@ -96,9 +96,9 @@ export default () => {
 	await frame1.waitForSelector(arrowButton)
 	await frame1.click(arrowButton)
 	await browser.sendKeys(Key.DOWN)
-	await browser.sendKeys(Key.DOWN)
+	//await browser.sendKeys(Key.DOWN)
 	await browser.sendKeys(Key.ENTER)
-	
+	//14-010-010 = cost code	
 
 	//source
 
@@ -214,7 +214,13 @@ await browser.takeScreenshot()
 
 })
 
+step('Step 12 - Insert Cost Code ', async browser => {
 
+	const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewNewFrame'))
+	let costCode = '#caEditTable > tbody > tr:nth-child(2) > td.buttonsTd > input:nth-child(1)'
+	await frame1.waitForSelector(costCode)
+	await frame1.type(costCode, '14-010-010')
+})
 
 step('Step 12 - Submit to Mirvac for approval', async browser => {
 
