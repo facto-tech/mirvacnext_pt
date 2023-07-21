@@ -13,7 +13,7 @@ export const settings: TestSettings = {
 	clearCookies: true,
 	actionDelay: 1.5,
 	stepDelay: 2.5,
-	loopCount: 1, 
+	loopCount: 30, 
 	browser: 'chromium',
 	waitTimeout: '60s',
 }
@@ -122,17 +122,17 @@ export default () => {
 
 	let budgetVariation = '#USR_BVRREF'
 	await frame1.waitForSelector(budgetVariation)
-	await frame1.type(budgetVariation, 'Flood Test -' + numberRange(1000,100000).toString())
+	await frame1.type(budgetVariation, numberRange(1000,10000).toString())
 
 	//construction reserve
 	let constReserve = '#USR_CONTRDRES'
 	await frame1.waitForSelector(constReserve)
-	await frame1.type(constReserve, 'Flood Test -' + numberRange(1000,100000).toString())
+	await frame1.type(constReserve, numberRange(1000,10000).toString())
 
 	//budget description
 	let budgetDescription = '#USR_BRFVDES_ifr'
 	await frame1.waitForSelector(budgetDescription)
-	await frame1.type(budgetDescription, 'Flood Test -' + numberRange(1000,100000).toString())
+	await frame1.type(budgetDescription, 'Flood Test -' + numberRange(1000,10000).toString())
 
 	})
 
@@ -142,7 +142,7 @@ export default () => {
 	const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewNewFrame'))
 	let estimatedBudget = '#USR_EBVR'
 	await frame1.waitForSelector(estimatedBudget)
-	await frame1.type(estimatedBudget, 'Flood Test -' + numberRange(1000,100000).toString())
+	await frame1.type(estimatedBudget, numberRange(1000,10000).toString())
 
 
 	//const triggerElement = By.css('#tinymce')
@@ -159,12 +159,14 @@ export default () => {
 		await frame1.waitForSelector(arrowButton4)
 		await frame1.click(arrowButton4)
 		await browser.sendKeys(Key.DOWN)
+		await browser.sendKeys(Key.DOWN)
 		await browser.sendKeys(Key.ENTER)
 
+		const frame2 = browser.page.frames().find((frame) => frame.name().includes('USR_BRFVDES_ifr'))
+		let budgetVariationDescription = '#tinymce'
+		await frame2.type(budgetVariationDescription, 'This is a random variation - ' + numberRange(100,100000).toString())
 
-
-	//const title = await browser.findElement(By.css('#tinymce'))
-	//await title.type('TESTVARIATIONDESCRIPTION')
+	
 	await browser.takeScreenshot()	
 
 	})
@@ -174,7 +176,7 @@ export default () => {
 		const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewNewFrame'))
 		let descriptionBudget = '#caEditTable > tbody > tr:nth-child(2) > td:nth-child(2) > textarea'
 		await frame1.waitForSelector(descriptionBudget)
-		await frame1.type(descriptionBudget, 'Flood Test -' + numberRange(1000,100000).toString())
+		await frame1.type(descriptionBudget, numberRange(1000,10000).toString())
 
 
 	//const title = await browser.findElement(By.css('#tinymce'))
@@ -189,7 +191,7 @@ step('Step 10 - Add a budget estimation code ', async browser => {
 	const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewNewFrame'))
 	let codeBudget = '#caEditTable > tbody > tr:nth-child(2) > td.buttonsTd > input:nth-child(1)'
 	await frame1.waitForSelector(codeBudget)
-	await frame1.type(codeBudget, 'Flood Test -' + numberRange(1000,100000).toString())
+	await frame1.type(codeBudget, numberRange(1000,10000).toString())
 
 
 //const title = await browser.findElement(By.css('#tinymce'))
@@ -205,7 +207,7 @@ step('Step 11 - Add a budget estimation rate ', async browser => {
 	const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewNewFrame'))
 	let rateBudget = '#caEditTable > tbody > tr:nth-child(2) > td.buttonsTd > input:nth-child(3)'
 	await frame1.waitForSelector(rateBudget)
-	await frame1.type(rateBudget, 'Flood Test -' + numberRange(1000,100000).toString())
+	await frame1.type(rateBudget, numberRange(1000,10000).toString())
 
 
 //const title = await browser.findElement(By.css('#tinymce'))
@@ -219,7 +221,7 @@ await browser.takeScreenshot()
 step('Step 12 - Submit to Mirvac for approval', async browser => {
 
 	const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewButFrame'))
-	let submitButton = '#titidMenu471577'
+	let submitButton = '//*[@id="idMenu471577"]/div'
 	await frame1.waitForSelector(submitButton)
 	await frame1.click(submitButton)
 	await browser.wait('30000ms') 
