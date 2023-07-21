@@ -65,7 +65,7 @@ export default () => {
 
     step('Step 4 - Redirect to the form link', async browser => {
 
-		await browser.visit('https://mirvac-uat.itwocx.com/cxR/cx.aspx?page=Docs/docnew2tree&j=MGR-UAT-20131&dsid=69903&mdu=COR&t=69903&action=searchGrid_New')
+		await browser.visit('https://mirvac-uat.itwocx.com/cxR/cx.aspx?page=docs/DocNew0&j=MGR-UAT-20131&dsid=69958&i=1981144&m=f&d=&mdu=CTR&f=CTRC&questionLogId=&tenderPackageId=')
 		await browser.takeScreenshot()	
 	})
 
@@ -82,20 +82,20 @@ export default () => {
 	})
 
 
-	step('Step 6 - Change the due date', async browser => {
+	// step('Step 6 - Change the due date', async browser => {
 		
-		const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
+	// 	const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
 		
-		let  dueDate = '#dueDate > img'
-		await frame1.waitForSelector(dueDate)
-		await frame1.click(dueDate)
+	// 	let  dueDate = '#dueDate > img'
+	// 	await frame1.waitForSelector(dueDate)
+	// 	await frame1.click(dueDate)
 
-		let chooseDate = '#cal_content > table > tbody > tr:nth-child(6) > td:nth-child(4) > a'
-		await frame1.waitForSelector(chooseDate)
-		await frame1.click(chooseDate) 
+	// 	let chooseDate = '#cal_content > table > tbody > tr:nth-child(6) > td:nth-child(4) > a'
+	// 	await frame1.waitForSelector(chooseDate)
+	// 	await frame1.click(chooseDate) 
 
-		await browser.takeScreenshot()
-	})	
+	// 	await browser.takeScreenshot()
+	// })	
 	
 	step('Step 7 - Enter the Administration Details', async browser => {
 		
@@ -184,10 +184,10 @@ export default () => {
 		await frame1.waitForSelector(inputForm)
 		await frame1.type(inputForm, numberRange(1000,400000).toString())
 
-		let insertRow = '//*[@id="rowsEditor"]/tbody/tr/td[2]/input[2]'
-		await frame1.waitForSelector(insertRow)
-		await frame1.click(insertRow)
-		await browser.takeScreenshot()
+		// let insertRow = '//*[@id="rowsEditor"]/tbody/tr/td[2]/input[2]'
+		// await frame1.waitForSelector(insertRow)
+		// await frame1.click(insertRow)
+		// await browser.takeScreenshot()
 
 
 	})
@@ -198,7 +198,7 @@ export default () => {
 	let submitButton = '//*[@id="idMenu471580"]/div'
 	await frame1.waitForSelector(submitButton)
 	await frame1.click(submitButton)
-	await browser.wait('15000ms') //Wait for 15 seconds for the result to appear
+	await browser.wait('30000ms') //Wait for 30 seconds for the result to appear
 
 	await browser.takeScreenshot()
 	

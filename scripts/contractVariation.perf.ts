@@ -65,39 +65,10 @@ function numberRange(min, max){
 	
 		})
 
-		step('Step 4 - Select Contract Admin', async browser => {
-		
-			const mainTarget = await browser.switchTo()
-			mainTarget.frame("outframe")
-	
-			const mainButtonFrame = await browser.switchTo()
-			mainButtonFrame.frame("mainbuttonFrame")
-			
-			const contractAdmin = await browser.findElement(By.css('#divMain > nobr:nth-child(3) > ul > li > span > a'))
-			await contractAdmin.click()
-	
-			await browser.takeScreenshot()
-				
-		// 	//Select A&CFORMS
-		// 	const listTarget = await browser.switchTo()
-		// 	listTarget.frame("DocRegRegFrame")
-	
-			
-		// 	//const acforms = await browser.findElement(By.css('#registerItems > tbody > tr:nth-child(3) > td:nth-child(2) > a'))
-		// 	const acforms = await browser.findElement(By.css('#registerItems > tbody > tr:nth-child(13) > td:nth-child(2) > a'))
-		// 	await acforms.click()
-	
-		// 	await browser.takeScreenshot()
-		})
 
-		/*
-		
-		We will select the first subcontract and create a subcontract variation fron it. 
-		*/
-
-		step('Step 5 - Create subcontractor variation for: 	CTRC: #0023', async browser => {
+		step('Step 5 - Create subcontractor variation', async browser => {
 			
-			await browser.visit('https://mirvac-uat.itwocx.com/cxR/cx.aspx?page=docs/DocNew0&j=MGR-UAT-20131&dsid=69958&i=1694926&m=f&d=&mdu=CTR&f=CTRC&questionLogId=&tenderPackageId=')
+			await browser.visit('https://mirvac-uat.itwocx.com/cxR/cx.aspx?page=docs/DocNew0&j=MGR-UAT-20131&dsid=69958&i=1981144&m=f&d=&mdu=CTR&f=CTRC&questionLogId=&tenderPackageId=')
 			await browser.takeScreenshot()	
 		})
 
@@ -106,7 +77,7 @@ function numberRange(min, max){
 			const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
 			let title = '#tt'
 			await frame1.waitForSelector(title)
-			await frame1.type(title, 'Variation - ' + numberRange(100,10000).toString())
+			await frame1.type(title, 'Variation - ' + numberRange(100,10000).toString() +' ')
 
 			await browser.takeScreenshot()
 			
@@ -205,7 +176,7 @@ function numberRange(min, max){
 		step('Step 11 - Submit for Approval', async browser => {
 			await browser.page.waitForSelector('#DocNewButFrameDiv > iframe')
 			const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewButFrame'))
-			let submitButton = '#idMenu287244 > div'
+			let submitButton = '//*[@id="titidMenu471581"]'
 			await frame1.waitForSelector(submitButton)
 			await frame1.click(submitButton)
 			await browser.wait('15000ms') //Wait for 15 seconds for the result to appear
