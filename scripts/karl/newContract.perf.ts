@@ -20,7 +20,7 @@ export const settings: TestSettings = {
 	actionDelay: 1.5,
 	stepDelay: 2.5,
 	browser: 'chromium', 
-	loopCount: 1,
+	loopCount: 15,
 	waitTimeout: '60s',
 }
 

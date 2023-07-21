@@ -1,4 +1,4 @@
-import { step, TestSettings, By, beforeAll, afterAll } from '@flood/element';
+import { step, TestSettings, By, beforeAll, afterAll, Until, Key } from '@flood/element';
 import assert from "assert";
 import Constants from '../data/Constants';
 
@@ -13,7 +13,8 @@ export const settings: TestSettings = {
 	clearCookies: true,
 	actionDelay: 1.5,
 	stepDelay: 2.5,
-	loopCount: 1, 
+	loopCount: 50, 
+	waitTimeout: '60s',
 }
 
 export default () => {
@@ -26,6 +27,7 @@ export default () => {
 	})
 
 	step('Step 1 - Load URL', async browser => {
+		await browser.wait('10000ms')
 		await browser.visit(Constants.UATURL)
 		await browser.takeScreenshot()
 	})
@@ -37,43 +39,59 @@ export default () => {
 
 	step('Step 3 - Login', async browser => {
 		
-		const login = await browser.findElement(By.css('#nme'))
-		await login.type(Constants.UATUSERNAME)
+		const username = By.css('#nme')
+        await browser.wait(Until.elementIsVisible(username))
+        
+        const password = By.css('#pwd')
+        await browser.wait(Until.elementIsVisible(password))
+        
+        await browser.type(username, Constants.UATUSERNAME)
+        await browser.type(password, Constants.UATPASSWORD)
 
-		const password = await browser.findElement(By.css('#pwd'))
-		await password.type(Constants.UATPASSWORD)
+        await browser.takeScreenshot()
 
-		await browser.takeScreenshot()
-
-		const loginButton = await browser.findElement(By.css('#commit > input'))
-		await login.click()
+        const loginButton = await browser.findElement(By.css('#commit > input'))
+        await loginButton.click()
 
 	})
 
 	step('Step 4 - Open Subcontractor Payment Claim', async browser => {
 
-		await browser.visit(Constants.FORMURL)
+		await browser.visit(Constants.UATPROGRESSCLAIM)
 		await browser.takeScreenshot()	
 	})
 
 	step('Step 5 - Click on PC line item', async browser => {
+		const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
+		let percentageClickable = '#tr\\.001 > td:nth-child(15)'
 
-		await browser.click(By.css('#tableData > tbody > tr.pcCaHeaderRow > th.H1.expandCollapseContainer.itemNo'))
-		await browser.takeScreenshot()	
+		await frame1.waitForSelector(percentageClickable)
+		await frame1.click(percentageClickable)
 	})
 
-	step('Step 6 - Enter PC line item 60%', async browser => {
-
-		await browser.click(By.css('#tableData > tbody > tr.pcCaHeaderRow > th.H1.expandCollapseContainer.itemNo'))
-		const percentage = await browser.findElement(By.css('#lineItemUpdaterInputRow > td:nth-child(10) > input'))
-		await percentage.type('60%')
-		await browser.takeScreenshot()	
+	step('Step 6 - Enter PC line item 1%', async browser => {
+		const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
+		let percent = '#lineItemUpdaterInputRow > td:nth-child(10) > input'
+		await frame1.click(percent)
+		await browser.sendKeys(Key.BACK_SPACE)
+		await browser.sendKeys(Key.BACK_SPACE)
+		await browser.sendKeys(Key.BACK_SPACE)
+		await frame1.type(percent, '1')
+		
 	})
 
 	step('Step 7 - Submit to Mirvac for approval', async browser => {
+		const frame2 = browser.page.frames().find((frame) => frame.name().includes('DocNewButFrame'))
+		let submissionButton = '//*[@id="idMenu471579"]/div'
+		//let submissionButton = '//*[@id="idMenu471579"]/div'
+		await frame2.waitForSelector(submissionButton)
+		await frame2.click(submissionButton)
+		
+	})
 
-		await browser.click(By.css('#idMenu271984'))
-		await browser.takeScreenshot()	
+	step('Step 8 - Capture result', async browser => {
+		await browser.wait('15000ms')
+		await browser.takeScreenshot()
 	})
 
 }

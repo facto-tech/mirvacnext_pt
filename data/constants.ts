@@ -18,6 +18,7 @@ class Constants {
     UATBUDGETTRAN = 'https://mirvac-uat.itwocx.com/cxR/cx.aspx?page=docs/DocNew0&j=MGR-UAT-20131&dsid=69886&m=&mdu=&bid=&d=&i=&f=&filelist=&linkdocid=&tnd=&transID=&reportID=&due=&z=45126.9382889005';
     FORMURL = 'https://mirvac.itwocx.com/cxR/cx.aspx?page=Docs/docnew2tree&j=MIRVAC_AC_TMP_03&dsid=67349&mdu=CTR&t=67349&m=&i=&transID=&reportId=&due=';
     FORMTITLE = 'DN BP-T5261'
+    UATPROGRESSCLAIM = 'https://mirvac-uat.itwocx.com/cxR/cx.aspx?page=docs/DocNew0&j=MGR-UAT-20131&dsid=69899&i=1980850&m=f&d=&mdu=CTR&f=CTRC&questionLogId=&tenderPackageId=';
 
     URL4 = 'https://mirvac.itwocx.com/cxR/cx.aspx?page=Docs/docnew2tree&j=MIRVAC_AC_TMP_03&dsid=67337&mdu=COR&t=67337&action=searchGrid_New';
 
