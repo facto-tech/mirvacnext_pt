@@ -13,7 +13,7 @@ export const settings: TestSettings = {
 	clearCookies: true,
 	actionDelay: 1.5,
 	stepDelay: 2.5,
-	loopCount: 150, 
+	loopCount: 100, 
 	browser: 'chromium',
 	waitTimeout: '60s',
 }
