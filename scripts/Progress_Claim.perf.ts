@@ -2,6 +2,11 @@ import { step, TestSettings, By, beforeAll, afterAll, Until, Key } from '@flood/
 import assert from "assert";
 import Constants from '../data/Constants';
 
+function numberRange(min, max){
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random()*(max-min + 1)) + min;
+}
 
 export const settings: TestSettings = {
 	userAgent: 'flood-facto-test',
@@ -13,7 +18,7 @@ export const settings: TestSettings = {
 	clearCookies: true,
 	actionDelay: 1.5,
 	stepDelay: 2.5,
-	loopCount: 50, 
+	loopCount: 1, 
 	waitTimeout: '60s',
 }
 
@@ -76,7 +81,8 @@ export default () => {
 		await browser.sendKeys(Key.BACK_SPACE)
 		await browser.sendKeys(Key.BACK_SPACE)
 		await browser.sendKeys(Key.BACK_SPACE)
-		await frame1.type(percent, '1')
+		await browser.sendKeys(Key.BACK_SPACE)
+		await frame1.type(percent, numberRange(1,99).toString())
 		
 	})
 
@@ -90,7 +96,7 @@ export default () => {
 	})
 
 	step('Step 8 - Capture result', async browser => {
-		await browser.wait('15000ms')
+		await browser.wait('30000ms')
 		await browser.takeScreenshot()
 	})
 
