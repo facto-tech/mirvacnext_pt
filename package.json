@@ -19,7 +19,8 @@
     "@flood/element-cli": "^1.0.8",
     "assert": "*",
     "faker": "^5.5.3",
-    "prettier": "*"
+    "prettier": "*",
+    "sass-loader": "^13.3.2"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.0.2",

@@ -14,7 +14,7 @@ function numberRange(min, max){
 	export const settings: TestSettings = {
 		userAgent: 'flood-facto-test',
 		waitUntil: 'visible',
-		description: 'iTwoCX Contract ',
+		description: 'iTwoCX Contract Variation',
 		screenshotOnFailure: true,
 		disableCache: true,
 		clearCache: true,
@@ -24,6 +24,9 @@ function numberRange(min, max){
 		browser: 'chromium', 
 		loopCount: 1,
 		waitTimeout: '60s',
+		stages: [
+			{duration: '60m', target: 2},
+		],
 	}
 	
 	export default () => {
@@ -37,7 +40,7 @@ function numberRange(min, max){
 		})
 	
 		step('Step 1 - Load URL', async browser => {
-			await browser.visit('https://mirvac-uat.itwocx.com/MGR-UAT-20131')
+			await browser.visit(Constants.UATURL)
 			await browser.takeScreenshot()
 		})
 	
@@ -55,8 +58,8 @@ function numberRange(min, max){
 			const password = By.css('#pwd')
 			await browser.wait(Until.elementIsVisible(password))
 			
-			await browser.type(username, Constants.ITWOCXUSERNAME)
-			await browser.type(password, Constants.ITWOCXPASSWORD)
+			await browser.type(username, Constants.UATUSERNAME)
+			await browser.type(password, Constants.UATPASSWORD)
 	
 			await browser.takeScreenshot()
 	
@@ -95,9 +98,9 @@ function numberRange(min, max){
 		We will select the first subcontract and create a subcontract variation fron it. 
 		*/
 
-		step('Step 5 - Create subcontractor variation for: 	CTRC: #0023', async browser => {
+		step('Step 5 - Create subcontractor variation for: 	CTRC: OF-10105', async browser => {
 			
-			await browser.visit('https://mirvac-uat.itwocx.com/cxR/cx.aspx?page=docs/DocNew0&j=MGR-UAT-20131&dsid=69958&i=1694926&m=f&d=&mdu=CTR&f=CTRC&questionLogId=&tenderPackageId=')
+			await browser.visit(Constants.UATCONTRACTVAR)
 			await browser.takeScreenshot()	
 		})
 
@@ -161,7 +164,7 @@ function numberRange(min, max){
 		
 		step('Step 9 - Fill in Description of Variation', async browser => {
 			
-			const signature = 'Facto Mirvac PT'		
+			const signature = 'Facto Mirvac PT'	
 			
 
 			const frame1 = browser.page.frames().find((frame) => frame.name().includes('USR_VARDES_ifr'))
@@ -205,10 +208,10 @@ function numberRange(min, max){
 		step('Step 11 - Submit for Approval', async browser => {
 			await browser.page.waitForSelector('#DocNewButFrameDiv > iframe')
 			const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewButFrame'))
-			let submitButton = '#idMenu287244 > div'
+			let submitButton = '#idMenu471581 > div'
 			await frame1.waitForSelector(submitButton)
 			await frame1.click(submitButton)
-			await browser.wait('15000ms') //Wait for 15 seconds for the result to appear
+			await browser.wait('30000ms') //Wait for 30 seconds for the result to appear
 
 		
 			await browser.takeScreenshot()

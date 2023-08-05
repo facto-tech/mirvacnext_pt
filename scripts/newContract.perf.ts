@@ -20,7 +20,8 @@ export const settings: TestSettings = {
 	actionDelay: 1.5,
 	stepDelay: 2.5,
 	browser: 'chromium', 
-	loopCount: 50,
+	loopCount: 1,
+	waitTimeout: '60s',
 }
 
 export default () => {
@@ -34,7 +35,7 @@ export default () => {
 	})
 
 	step('Step 1 - Load URL', async browser => {
-		await browser.visit('https://mirvac-uat.itwocx.com/MGR-UAT-20131')
+		await browser.visit(Constants.UATURL)
 		await browser.takeScreenshot()
 	})
 
@@ -52,8 +53,8 @@ export default () => {
         const password = By.css('#pwd')
         await browser.wait(Until.elementIsVisible(password))
         
-        await browser.type(username, Constants.ITWOCXUSERNAME)
-        await browser.type(password, Constants.ITWOCXPASSWORD)
+        await browser.type(username, Constants.UATUSERNAME)
+        await browser.type(password, Constants.UATPASSWORD)
 
         await browser.takeScreenshot()
 
@@ -64,18 +65,18 @@ export default () => {
 
     step('Step 4 - Redirect to the form link', async browser => {
 
-		await browser.visit('https://mirvac-uat.itwocx.com/cxR/cx.aspx?page=Docs/docnew2tree&j=MGR-UAT-20131&dsid=69903&mdu=CTR&t=69903&m=&i=&transID=&reportId=&due=')
+		await browser.visit(Constants.UATSUBCONTRACTURL)
 		await browser.takeScreenshot()	
 	})
 
 
 	step('Step 5 - Enter title', async browser => {
-		const randNum = numberRange(100, 10000) 
+		//const randNum = numberRange(100, 10000) 
 		const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
 		let title = '#tt'
 
 		await frame1.waitForSelector(title)
-		await frame1.type(title, 'Flood Test - ' + randNum)
+		await frame1.type(title, 'Flood Test - ' + numberRange(100,10000).toString())
 
 		await browser.takeScreenshot()
 	})
@@ -203,7 +204,7 @@ export default () => {
 
 		let inputForm = '//*[@id="caEditTable"]/tbody/tr/td/table/tbody/tr[2]/td[7]/input'
 		await frame1.waitForSelector(inputForm)
-		await frame1.type(inputForm, randNum.toString())
+		await frame1.type(inputForm, numberRange(100,10000).toString())
 
 		// let insertButton = '//*[@id="rowsEditor"]/tbody/tr/td[2]/input[2]'
 		// await frame1.waitForSelector(insertButton)
@@ -225,10 +226,10 @@ export default () => {
 
 	step('Step 11 - Submit for Approval', async browser => {
 	
-	const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewButFrame'))
-	let submitButton = '//*[@id="titidMenu471580"]'
-	await frame1.waitForSelector(submitButton)
-	await frame1.click(submitButton)
+	const frame2 = browser.page.frames().find((frame) => frame.name().includes('DocNewButFrame')) 
+	let submitButton = '#titidMenu471580'
+	await frame2.waitForSelector(submitButton)
+	await frame2.click(submitButton)
 	await browser.wait('25000ms') //Wait for 25 seconds for the result to appear
 
 	
