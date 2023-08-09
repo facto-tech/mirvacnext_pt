@@ -17,6 +17,7 @@ import {
     await title.text("TEXTVALUE");
     await browser.takeScreenshot();
     // Export the value to a JSON file
+    
     const jsonValue = { value: title };
     const jsonFileName = "results.json";
     await browser.writeTextFile(jsonFileName, JSON.stringify(jsonValue));
