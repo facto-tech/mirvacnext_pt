@@ -1,4 +1,4 @@
-//add to PT scripts w/ relevant element/selector values based on script function. 
+//add to PT scripts w/ relevant element/selector values based on script function 
 })
 
 // Define global variables
