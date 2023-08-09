@@ -24,7 +24,8 @@
   "devDependencies": {
     "@faker-js/faker": "^8.0.2",
     "@types/assert": "*",
-    "@types/faker": "*"
+    "@types/faker": "*",
+    "@types/node": "^20.4.9"
   },
   "element": {
     "testMatch": [
