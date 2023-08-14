@@ -1,5 +1,5 @@
 class Constants {
-
+//Global
     URL = 'https://mirvac.itwocx.com/MGR-ENT-MST-002-TEM';
     ITWOCXLOGIN = 'mpc_ca2retire@mailinator.com';
     ITWOPASS = 'Project123!';
@@ -17,13 +17,15 @@ class Constants {
     UATNEWBUDGET = 'https://mirvac-uat.itwocx.com/cxR/cx.aspx?page=docs/DocNew0&j=MGR-UAT-20131&dsid=69875&m=&mdu=&bid=&d=&i=&f=&filelist=&linkdocid=&tnd=&transID=&reportID=&due=&z=45126.4018181829';
     UATBUDGETTRAN = 'https://mirvac-uat.itwocx.com/cxR/cx.aspx?page=docs/DocNew0&j=MGR-UAT-20131&dsid=69886&m=&mdu=&bid=&d=&i=&f=&filelist=&linkdocid=&tnd=&transID=&reportID=&due=&z=45126.9382889005';
     FORMURL = 'https://mirvac.itwocx.com/cxR/cx.aspx?page=Docs/docnew2tree&j=MIRVAC_AC_TMP_03&dsid=67349&mdu=CTR&t=67349&m=&i=&transID=&reportId=&due=';
-    FORMTITLE = 'DN BP-T5261'
+    
 
     URL4 = 'https://mirvac.itwocx.com/cxR/cx.aspx?page=Docs/docnew2tree&j=MIRVAC_AC_TMP_03&dsid=67337&mdu=COR&t=67337&action=searchGrid_New';
 
     URL5 = 'https://mirvac.itwocx.com/cxR/cx.aspx?page=docs/DocNew0&j=MIRVAC_AC_TMP_03&dsid=67325&m=&mdu=&bid=&d=&i=&f=&filelist=&linkdocid=&tnd=&transID=&reportID=&due=&z=45120.6048761458'
    
     SUBCONTRACT_URL = 'https://mirvac.itwocx.com/cxR/cx.aspx?page=Docs/docnew2tree&j=MIRVAC_AC_TMP_03&dsid=67349&mdu=CTR&t=67349&m=&i=&transID=&reportId=&due=';
+
+    UATREFNUMB = 'https://MIRVAC-UAT.itwocx.com/cxR/MGR-UAT-20131?z=638272640244136742'
 }
 
 export default new Constants();
