@@ -31,8 +31,8 @@ export const settings: TestSettings = {
 	actionDelay: 1.5,
 	stepDelay: 2.5,
 	browser: 'chromium', 
-	loopCount: 1,
-	waitTimeout: '60s',
+	loopCount: 10,
+	waitTimeout: '160s',
 }
 
 
@@ -164,42 +164,37 @@ export default () => {
 	await browser.takeScreenshot()
 	})
 
-    // Extracting referenceID and saving it to a JSON file
-    step('Step 11 - Rip referenceID', async browser => {
+	// Extracting referenceID [Fixed]
+step('Step 11 - Rip referenceID', async browser => {
     const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocDetDetFrame'));
     let referenceID = '#pcr_mRef > span';
     const title = await frame1.waitForSelector(referenceID);
     const textValue = String(await title.textContent());
     await browser.takeScreenshot();
     jsonValue = { value: textValue };
-    const jsonFileName = "results.json";
-    fs.writeFileSync(jsonFileName, JSON.stringify(jsonValue));
-    console.log(`Value exported to ${jsonFileName}`);
-    await browser.takeScreenshot();
-    });
+    jsonData.push(jsonValue); // Append the current referenceID to jsonData
+});
 
-    // Reading existing data from the JSON file and appending the new referenceID
-    step("Step 12 - Read and Append Data", async (browser) => {
+// Reading existing data from the JSON file and appending the new referenceID
+step("Step 12 - Read and Append Data", async (browser) => {
     try {
         const dataFromFile = JSON.parse(fs.readFileSync("results.json", "utf-8"));
         if (Array.isArray(dataFromFile)) {
-            jsonData = dataFromFile;
-        } else {
-            console.log("Error: Data from results.json is not an array. Using default value.");
-            jsonData = [];
+            jsonData = dataFromFile.concat(jsonData); // Append the current jsonData to the existing data
         }
     } catch (error) {
         console.log("JSON file not found or other error reading the file.");
-        jsonData = []; 
+        // If there's an error, we'll use the current jsonData as is
     }
-    jsonData.push(jsonValue);
-    });
+});
 
-    // Saving the updated data back to the JSON file
-    step("Step 13 - Write data back to file", async (browser) => {
+// Saving the updated data back to the JSON file
+step("Step 13 - Write data back to file", async (browser) => {
     fs.writeFileSync("results.json", JSON.stringify(jsonData, null, 2));
-    console.log(`Value appended to results.json`);
+    console.log(`Values appended to results.json`);
     await browser.takeScreenshot();
-    });
+    jsonData = []; // Clear jsonData for the next loop iteration
+});
+
 
 	};
