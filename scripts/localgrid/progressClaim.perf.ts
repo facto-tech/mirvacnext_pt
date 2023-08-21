@@ -21,7 +21,7 @@ export const settings: TestSettings = {
 	loopCount: -1, 
 	waitTimeout: '60s',
     stages: [
-        {duration: '60m', target: 2},
+        {duration: '120m', target: 4},
     ],
 }
 
