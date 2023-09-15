@@ -92,7 +92,7 @@ Place your test scripts in the `scripts` directory.
 
 ### [Digital envelope routines::unsupported](https://stackoverflow.com/questions/69692842/error-message-error0308010cdigital-envelope-routinesunsupported)
 
-![title](../mirvacnext_pt/Images/bug-flood.png)
+![title](Images/bug-flood.png)
 
 If you encounter the following error after running the test for the first time:
 
