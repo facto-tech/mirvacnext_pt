@@ -41,7 +41,7 @@ This framework requires the following:
 
 ### For macOS:
 
-1. Download and install Git from [Git for Windows](https://gitforwindows.org/).
+1. Download and install Git from [Git for macOS](https://gitforwindows.org/).
 2. Download and install Node.js from [Node.js official website](https://nodejs.org/).
 3. To install Element CLI on macOS, run the following command:
 
