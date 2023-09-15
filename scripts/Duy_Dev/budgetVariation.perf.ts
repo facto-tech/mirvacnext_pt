@@ -1,6 +1,6 @@
 import { step, TestSettings, By, beforeAll, afterAll, Until, Key } from '@flood/element';
 import assert from "assert";
-import constants from '../data/Constants';
+import constants from '../../data/Constants';
 
 
 export const settings: TestSettings = {
@@ -151,7 +151,7 @@ export default () => {
 	const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewNewFrame'))
 	let estimatedBudget = '#USR_EBVR'
 	await frame1.waitForSelector(estimatedBudget)
-	await frame1.type(estimatedBudget, 'Flood Test -' + numberRange(1000,100000).toString())
+	await frame1.type(estimatedBudget, numberRange(1000,100000).toString())
 
 
 	//const triggerElement = By.css('#tinymce')
@@ -214,7 +214,7 @@ step('Step 10 - Add a budget estimation rate ', async browser => {
 	const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewNewFrame'))
 	let rateBudget = '#caEditTable > tbody > tr:nth-child(2) > td.buttonsTd > input:nth-child(3)'
 	await frame1.waitForSelector(rateBudget)
-	await frame1.type(rateBudget, 'Flood Test -' + numberRange(1000,100000).toString())
+	await frame1.type(rateBudget, numberRange(1000,100000).toString())
 
 
 //const title = await browser.findElement(By.css('#tinymce'))

@@ -22,8 +22,11 @@ function numberRange(min, max){
 		actionDelay: 1.5,
 		stepDelay: 2.5,
 		browser: 'chromium', 
-		loopCount: 1,
+		//loopCount: -1,
 		waitTimeout: '60s',
+		stages: [
+			{duration: '90m', target: 2},
+		],
 	}
 	
 	export default () => {
@@ -71,17 +74,6 @@ function numberRange(min, max){
 			await frame1.type(title, 'Variation - ' + numberRange(100,10000).toString() +' ')
 			await browser.takeScreenshot()	
 		})
-
-		step('Step 7 - Change the Due Date', async browser => {
-			const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))
-			let  dueDate = '#dueDate > img'
-			await frame1.waitForSelector(dueDate)
-			await frame1.click(dueDate)
-			let chooseDate = '#cal_content > table > tbody > tr:nth-child(6) > td:nth-child(3) > a'
-			await frame1.waitForSelector(chooseDate)
-			await frame1.click(chooseDate) 
-			await browser.takeScreenshot()
-		})	
 
 		step('Step 8 - Selection of Dropdown Menu Options', async browser => {
 			const frame1 = browser.page.frames().find((frame) => frame.name().includes('DocNewNewFrame'))	

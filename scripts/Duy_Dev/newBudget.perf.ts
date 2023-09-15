@@ -1,6 +1,6 @@
 import { step, TestSettings, By, beforeAll, afterAll, Until, Key } from '@flood/element';
 import assert from "assert";
-import Constants from '../data/Constants';
+import Constants from '../../data/Constants';
 
 
 export const settings: TestSettings = {
@@ -130,6 +130,12 @@ export default () => {
 	const frame1 = browser.page.frames().find((frame ) => frame.name().includes('DocNewNewFrame'))
 	let openContract = '//*[@id="tr.001"]/td[8]'
 	await frame1.click(openContract)
+	let description = '#Description'
+	await frame1.type(description, 'Test')
+	let costCode = '//*[@id="caEditTable"]/tbody/tr/td/table/tbody/tr[2]/td[4]/span/span/span[2]'
+	await frame1.click(costCode)
+	await browser.sendKeys(Key.DOWN)
+	await browser.sendKeys(Key.ENTER)
 	let inputBudget = '//*[@id="Budget"]'
 	await frame1.type(inputBudget, numberRange(100,25000).toString())
 
