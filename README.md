@@ -19,7 +19,7 @@ This repository serves as the hub for Facto's performance testing project conduc
 3. [Running Tests](#running-tests)
 4. [Known Issues](#known-issues)
 
-## 1. Requirements
+## Requirements
 
 This framework requires the following:
 
@@ -27,7 +27,7 @@ This framework requires the following:
 - Node.js
 - Flood Element CLI
 
-## 2. Installation
+## Installation
 
 ### For Windows:
 
@@ -60,7 +60,7 @@ This framework requires the following:
     - **Navigate to the Directory**: `cd mirvacnext_pt`
 
 
-## 3. Running Tests
+## Running Tests
 
 The test scripts are located in the `mirvacnext_pt\scripts` directory. To run the tests, follow these steps:
 
@@ -88,7 +88,7 @@ Update the `element.config.js` file with the appropriate settings.
 
 Place your test scripts in the `scripts` directory.
 
-## 4. Known Issues
+## Known Issues
 
 ### [Digital envelope routines::unsupported](https://stackoverflow.com/questions/69692842/error-message-error0308010cdigital-envelope-routinesunsupported)
 
