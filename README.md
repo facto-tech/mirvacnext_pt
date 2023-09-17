@@ -14,10 +14,10 @@ This repository serves as the hub for Facto's performance testing project conduc
 
 ## Table Of Content
 
-1. Requirements
-2. Installation
-3. Running Tests
-4. Known Issues
+1. [Requirements](#requirements)
+2. [Installation](#installation)
+3. [Running Tests](#running-tests)
+4. [Known Issues](#known-issues)
 
 ## 1. Requirements
 
